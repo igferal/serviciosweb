@@ -1,3 +1,5 @@
+import { UserService } from "./../../services/user.service";
+import { ActivatedRoute, Params } from "@angular/router";
 import { BlogPostService } from "./../../services/blogpost.service";
 import { TagsService } from "./../../services/tags.service";
 import { Component, OnInit } from "@angular/core";
@@ -10,8 +12,7 @@ import { BlogPost } from "./../../model/blogPost";
   providers: [BlogPostService, TagsService]
 })
 export class CreateNewsComponent implements OnInit {
-  public editorContent: string = `En un lugar de la mancha, de cuyo nombre no quiero acordame,
-   había un Honda Civic 2017 de gasofa`;
+  public editorContent: string = `Escribe aquí`;
 
   public articleName: string;
 
@@ -21,7 +22,8 @@ export class CreateNewsComponent implements OnInit {
 
   constructor(
     public blogPostService: BlogPostService,
-    public tagsService: TagsService
+    public tagsService: TagsService,
+    public route: ActivatedRoute
   ) {}
 
   createArticle(a: BlogPost): void {
@@ -47,6 +49,17 @@ export class CreateNewsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tags = this.tagsService.getTags().tags;
+
+    let suscription = this.route.params
+      .subscribe(id => {
+        
+        if (null != id.id) {
+          let bp = this.blogPostService.getBlogPostById(id.id);
+          this.editorContent = bp.content;
+          this.articleName = bp.title;
+        } else {
+          this.tags = this.tagsService.getTags().tags;
+        }
+      });
   }
 }

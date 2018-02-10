@@ -19,6 +19,8 @@ export class MyBlogPostsComponent implements OnInit {
   }
 
   modifyBlogPost(id: string) {
+  
+    this.router.navigate(["editNews",id])
     console.log(id);
   }
 

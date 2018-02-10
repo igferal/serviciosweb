@@ -14,6 +14,8 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "myblogposts", component: MyBlogPostsComponent },
   { path: "signUp", component: SignUpComponent },
+  { path: "editNews/:id", component: CreateNewsComponent },
+
 
 
   { path: 'newsDetail/:id', component: NewsDetailComponent}
