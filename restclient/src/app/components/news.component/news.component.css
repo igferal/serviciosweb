@@ -1,0 +1,70 @@
+
+
+
+img {
+  height: 170px;
+  width: 170px;
+  border-radius: 170px;
+}
+
+img:hover {
+  transform: scale(1.1);
+}
+
+section {
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  width: 40%;
+  border-radius: 20px;
+}
+
+article:hover{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+
+}
+
+p {
+  color: rgba(0, 0, 0, 0.548);
+}
+article h1 {
+  margin-bottom: -10px;
+  color: #0c8346;
+}
+
+.btn-main{
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: #0c8346;
+  color: white;
+  text-decoration: none;
+  border: none;
+}
+
+button:focus{
+  outline: none;
+}
+
+.btn-main:hover{
+  transform: scale(1.1);
+}
+
+.right{
+  align-self: flex-end;
+}
+
+/*
+
+
+-extension -XadditionalHeaders  antes de xnocompile
+
+*/

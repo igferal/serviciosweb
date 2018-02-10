@@ -1,0 +1,13 @@
+<form (ngSubmit)="createArticle()" #createNews="ngForm">
+
+    <h1>Crear noticia</h1>
+    <label>Nombre artículo</label>
+    <input [(ngModel)]="articleName" name="articleName" type="text" placeholder="" />
+    <br/>
+    <div [froalaEditor] [(froalaModel)]="editorContent"></div>
+    <br/>
+    <button class="btn-main center">Crear noticia</button>
+</form>
+<section>
+    <div [innerHTML]="editorContent"></div>
+</section>

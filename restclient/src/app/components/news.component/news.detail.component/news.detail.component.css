@@ -1,0 +1,11 @@
+section {
+  display: flex;
+  flex-direction: column;
+  margin: 1% 5%;
+
+  justify-content: space-around;
+}
+
+h1 {
+  color: #0c8346;
+}
