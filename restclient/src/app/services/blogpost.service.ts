@@ -25,4 +25,24 @@ export class BlogPostService {
       tags: ["deporte", "lo flama"]
     };
   }
+
+  public getMyArticles() {
+    return [
+      {
+        id: "1",
+        title: "Si ya saben como me pongo pa que ",
+        date: new Date()
+      },
+      {
+        title: "Si ya saben como me puse",
+        id: "2",
+        date: new Date()
+      },
+      {
+        title: "Honda brum brum",
+        id: "3",
+        date: new Date()
+      }
+    ];
+  }
 }

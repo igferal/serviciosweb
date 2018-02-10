@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login.component/login.component';
 import { SignUpComponent } from './components/sign.up.component/sign.up.component';
+import { MyBlogPostsComponent } from './components/news.component/my.blogposts.component/my.blogposts.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { SignUpComponent } from './components/sign.up.component/sign.up.componen
     CreateNewsComponent,
     NewsDetailComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    MyBlogPostsComponent
   ],
   imports: [
     BrowserModule,

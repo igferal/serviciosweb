@@ -4,14 +4,12 @@ import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class UserService {
-
   private endpoint: string = "http://156.35.98.44:8080/restapi/user";
 
-  private user :boolean =false;
-
+  private user: boolean = false;
 
   constructor(public http: HttpClient) {
-    console.log("Me creo")
+    console.log("Me creo");
   }
 
   public login(user: string, password) {
@@ -26,5 +24,6 @@ export class UserService {
   public getUser() {
     return this.user;
   }
-}
 
+  
+}

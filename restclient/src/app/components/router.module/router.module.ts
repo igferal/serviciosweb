@@ -1,3 +1,4 @@
+import { MyBlogPostsComponent } from './../news.component/my.blogposts.component/my.blogposts.component';
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { NewsComponent } from "../news.component/news.component";
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: "news", component: NewsComponent },
   { path: "createNews", component: CreateNewsComponent },
   { path: "login", component: LoginComponent },
+  { path: "myblogposts", component: MyBlogPostsComponent },
   { path: "signUp", component: SignUpComponent },
 
 
