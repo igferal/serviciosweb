@@ -5,8 +5,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -30,12 +30,11 @@ public class BlogPost extends BaseEntity {
 	@Column(name = "BODY", nullable = false, length = 512)
 	private String body;
 
-	@Column(name = "CREATION_DATE", nullable = false)
+	@Column(name = "CREATION_DATE", nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date creationDate;
 
-	@ManyToMany
-	@JoinTable(name = "BLOGPOST_TAG")
+	@ManyToMany(mappedBy = "blogPosts", fetch = FetchType.EAGER)
 	private Set<Tag> tags;
 
 	public BlogPost() {

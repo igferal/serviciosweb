@@ -7,6 +7,7 @@ import javax.persistence.MappedSuperclass;
 
 /**
  * Clase con la información base de todas las entidades
+ * 
  * @author Victor
  *
  */

@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -14,7 +15,8 @@ public class Tag extends BaseEntity {
 	@Column(name = "NAME", unique = true, nullable = false)
 	private String name;
 
-	@ManyToMany(mappedBy = "tags")
+	@ManyToMany
+	@JoinTable(name = "BLOGPOST_TAG")
 	private Set<BlogPost> blogPosts;
 
 	public Tag() {
