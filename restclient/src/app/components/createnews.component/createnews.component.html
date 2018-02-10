@@ -6,6 +6,15 @@
     <br/>
     <div [froalaEditor] [(froalaModel)]="editorContent"></div>
     <br/>
+    <ul class="inline">
+        <li class="inline" *ngFor="let tag of tags">
+            <label for="{{tag}}">{{tag}}
+                <input type="checkbox" name="{{tag}}" id="{{tag}}" value="{{tag}}" (click)="addTag(tag)">
+            </label>
+        </li>
+    </ul>
+
+    <br/>
     <button class="btn-main center">Crear noticia</button>
 </form>
 <section>

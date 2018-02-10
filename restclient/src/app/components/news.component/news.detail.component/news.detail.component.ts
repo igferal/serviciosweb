@@ -1,21 +1,24 @@
-import { NewsService } from "./../../../services/news.service";
+import { BlogPostService } from './../../../services/blogpost.service';
 import { Component } from "@angular/core";
 import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 import { ActivatedRoute, Params } from "@angular/router";
+import { DatePipe } from '@angular/common';
 import "rxjs/add/operator/switchMap";
 
 @Component({
   selector: "newsDetail",
   templateUrl: "./news.detail.component.html",
   styleUrls: ["./news.detail.component.css"],
-  providers: [NewsService]
+  providers: [BlogPostService]
 })
 export class NewsDetailComponent implements OnInit {
   public id: string;
 
+
+
   public article;
 
-  constructor(public route: ActivatedRoute, public newsService: NewsService) {}
+  constructor(public route: ActivatedRoute, public blogPostService: BlogPostService) {}
 
   ngOnInit() {
     let suscription = this.route.params
@@ -24,6 +27,6 @@ export class NewsDetailComponent implements OnInit {
         console.log("Ruta inicializada");
       });
 
-    this.article = this.newsService.getNewsById(this.id);
+    this.article = this.blogPostService.getBlogPostById(this.id);
   }
 }

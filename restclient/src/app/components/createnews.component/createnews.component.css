@@ -45,3 +45,10 @@ input{
   color: rgba(0, 0, 0, 0.9);
 
 }
+
+.inline,label{
+
+  display : inline-flex;
+  justify-content: space-between;
+  width: 100%;
+}

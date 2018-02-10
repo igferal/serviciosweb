@@ -3,8 +3,8 @@
     <a href="" class="none"></a>
     <a class="logo" href="/">Uonewsfeed</a>
     <div>
-      <a class="signup" href="signUp">Crear Usuario</a>
-      <a class="login" href="/login">Iniciar sesión</a>
+      <a *ngIf="!logged" class="signup" href="signUp">Crear Usuario</a>
+      <a *ngIf="!logged" class="login" href="/login">Iniciar sesión</a>
     </div>
   </nav>
   <nav class="navLinks">
