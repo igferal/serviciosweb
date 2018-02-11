@@ -12,13 +12,9 @@ import { BlogPost } from "./../../model/blogPost";
   providers: [BlogPostService, TagsService]
 })
 export class CreateBlogPostComponent implements OnInit {
-  public editorContent: string = `Escribe aquí`;
-
-  public articleName: string;
+  public blogpost: BlogPost = new BlogPost("", "Escribe aqui", new Date(), []);
 
   public tags: Array<String>;
-
-  public selectedTags: Array<String> = [];
 
   constructor(
     public blogPostService: BlogPostService,
@@ -27,39 +23,28 @@ export class CreateBlogPostComponent implements OnInit {
   ) {}
 
   createArticle(a: BlogPost): void {
-    console.log(this.articleName);
-    this.blogPostService.createBlogpost(
-      new BlogPost(
-        this.articleName,
-        this.editorContent,
-        new Date(),
-        this.selectedTags
-      )
-    );
+    this.blogPostService.createBlogpost(this.blogpost);
   }
 
   public addTag(tag: string) {
-    if (!this.selectedTags.includes(tag)) {
-      this.selectedTags.push(tag);
+    if (!this.blogpost.tags.includes(tag)) {
+      this.blogpost.tags.push(tag);
     } else {
-      let pos = this.selectedTags.indexOf(tag);
-      this.selectedTags.splice(pos, 1);
+      let pos = this.blogpost.tags.indexOf(tag);
+      this.blogpost.tags.splice(pos, 1);
     }
-    console.log(this.selectedTags);
+    console.log(this.blogpost.tags);
   }
 
   ngOnInit() {
-
-    let suscription = this.route.params
-      .subscribe(id => {
-        
-        if (null != id.id) {
-          let bp = this.blogPostService.getBlogPostById(id.id);
-          this.editorContent = bp.content;
-          this.articleName = bp.title;
-        } else {
-          this.tags = this.tagsService.getTags().tags;
-        }
-      });
+    let suscription = this.route.params.subscribe(id => {
+      if (null != id.id) {
+        let bp = this.blogPostService.getBlogPostById(id.id);
+        this.blogpost.content = bp.content;
+        this.blogpost.title = bp.title;
+      } else {
+        this.tags = this.tagsService.getTags().tags;
+      }
+    });
   }
 }
