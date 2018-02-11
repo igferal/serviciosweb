@@ -2,9 +2,9 @@
 
     <h1>Crear noticia</h1>
     <label>Nombre artículo</label>
-    <input [(ngModel)]="articleName" name="articleName" type="text" placeholder="" />
+    <input [(ngModel)]="blogpost.title" name="articleName" type="text" placeholder="" />
     <br/>
-    <div [froalaEditor] [(froalaModel)]="editorContent"></div>
+    <div [froalaEditor] [(froalaModel)]="blogpost.content"></div>
     <br/>
     <ul class="inline">
         <li class="inline" *ngFor="let tag of tags">
