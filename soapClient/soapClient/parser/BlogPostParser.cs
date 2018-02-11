@@ -35,8 +35,8 @@ namespace soapClient.parser
                     this.reducer = new PDFReducer();
                     blogPost.content = this.reducer.reduceContent(this.fileRoute);
                     break;
-                case "docx":
-                    this.reducer = new DocxReducer();
+                case "html":
+                    this.reducer = new HTMLParser();
                     blogPost.content = this.reducer.reduceContent(this.fileRoute);
                     break;
 
