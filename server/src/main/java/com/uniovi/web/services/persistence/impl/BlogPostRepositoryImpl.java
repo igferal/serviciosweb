@@ -31,7 +31,6 @@ public class BlogPostRepositoryImpl extends BaseRepository<BlogPost> implements 
 
 	@Override
 	public Set<BlogPost> findByCriteria(BlogPost criteria) {
-		// Specification<BlogPost> search = this.isBlogPostCriteria(criteria);
 		if (null != criteria) {
 			return new HashSet<BlogPost>(blogPostRepository.findAll(this.isBlogPostCriteria(criteria)));
 		}

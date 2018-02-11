@@ -1,11 +1,7 @@
 package com.uniovi.web.services.model;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Table(name = "TAG")
@@ -14,10 +10,6 @@ public class Tag extends BaseEntity {
 
 	@Column(name = "NAME", unique = true, nullable = false)
 	private String name;
-
-	@ManyToMany
-	@JoinTable(name = "BLOGPOST_TAG")
-	private Set<BlogPost> blogPosts;
 
 	public Tag() {
 		super();
@@ -29,14 +21,6 @@ public class Tag extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Set<BlogPost> getBlogPosts() {
-		return blogPosts;
-	}
-
-	public void setBlogPosts(Set<BlogPost> blogPosts) {
-		this.blogPosts = blogPosts;
 	}
 
 	@Override
