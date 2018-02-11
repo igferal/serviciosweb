@@ -27,7 +27,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User authenticate(String email, String password) {
 		if (StringUtils.isBlank(email) || StringUtils.isBlank(password)) {
-			throw new IllegalArgumentException("Both email and password are required");
+			throw new IllegalArgumentException(
+					"Both email and password are required");
 		}
 		return userRepository.findByEmailAndPassword(email, password);
 	}
@@ -52,7 +53,8 @@ public class UserServiceImpl implements UserService {
 		if (null == existingUser) {
 			userRepository.save(user);
 		} else {
-			throw new UserAlreadyExistsException("User email " + user.getEmail() + " is in use");
+			throw new UserAlreadyExistsException(
+					"User email " + user.getEmail() + " is in use");
 		}
 	}
 
@@ -67,7 +69,8 @@ public class UserServiceImpl implements UserService {
 
 		User existingUser = userRepository.findByEmail(user.getEmail());
 		if (null == existingUser) {
-			throw new UserNotFoundException("User email " + user.getEmail() + " is not registered");
+			throw new UserNotFoundException(
+					"User email " + user.getEmail() + " is not registered");
 		} else {
 			user.setId(existingUser.getId());
 			userRepository.save(user);
@@ -82,7 +85,8 @@ public class UserServiceImpl implements UserService {
 	 * @return
 	 */
 	private boolean assertUserParameters(User user) {
-		return StringUtils.isNotBlank(user.getEmail()) && StringUtils.isNotBlank(user.getName())
+		return StringUtils.isNotBlank(user.getEmail())
+				&& StringUtils.isNotBlank(user.getName())
 				&& StringUtils.isNotBlank(user.getPassword());
 	}
 

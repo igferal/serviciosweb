@@ -1,5 +1,6 @@
 package com.uniovi.web.services.business.impl;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +13,7 @@ import com.uniovi.web.services.business.BlogPostService;
 import com.uniovi.web.services.model.BlogPost;
 import com.uniovi.web.services.model.Tag;
 import com.uniovi.web.services.model.User;
+import com.uniovi.web.services.model.exception.BlogPostNotFoundException;
 import com.uniovi.web.services.persistence.BlogPostRepository;
 import com.uniovi.web.services.persistence.TagRepository;
 import com.uniovi.web.services.persistence.UserRepository;
@@ -40,10 +42,12 @@ public class BlogPostServiceImpl implements BlogPostService {
 			throw new IllegalArgumentException("BlogPost parameters required");
 		}
 		if (!assertCreatorExists(blog)) {
-			throw new IllegalArgumentException("BlogPost valid creator required");
+			throw new IllegalArgumentException(
+					"BlogPost valid creator required");
 		}
 		if (null != blog.getId()) {
-			throw new IllegalArgumentException("Update for an existing blogpost");
+			throw new IllegalArgumentException(
+					"Update for an existing blogpost");
 		}
 		blog.setTags(getBlogTags(blog));
 		blog.setCreationDate(new Date());
@@ -51,10 +55,11 @@ public class BlogPostServiceImpl implements BlogPostService {
 	}
 
 	@Override
-	public Set<BlogPost> find(BlogPost criteria) {
+	public Set<BlogPost> find(BlogPost criteria, String[] tags) {
 		if (null == criteria) {
 			throw new IllegalArgumentException("Criteria parameter required");
 		}
+		criteria.setTags(getTagList(tags));
 		return blogPostRepository.findByCriteria(criteria);
 	}
 
@@ -64,12 +69,15 @@ public class BlogPostServiceImpl implements BlogPostService {
 			throw new IllegalArgumentException("BlogPost parameters required");
 		}
 		if (!assertCreatorExists(blogPost)) {
-			throw new IllegalArgumentException("BlogPost valid creator required");
+			throw new IllegalArgumentException(
+					"BlogPost valid creator required");
 		}
 		if (null == blogPost.getId()) {
-			throw new IllegalArgumentException("Save for non existing blogpost");
+			throw new IllegalArgumentException(
+					"Save for non existing blogpost");
 		}
-		BlogPost existingBlogPost = blogPostRepository.findOne(blogPost.getId());
+		BlogPost existingBlogPost = blogPostRepository
+				.findOne(blogPost.getId());
 		if (null == existingBlogPost) {
 			throw new IllegalArgumentException("Blogpost not found");
 		}
@@ -78,9 +86,15 @@ public class BlogPostServiceImpl implements BlogPostService {
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(Long id) throws BlogPostNotFoundException {
 		if (null == id) {
 			throw new IllegalArgumentException("BlogPost id required");
+		}
+		if (null != blogPostRepository.findOne(id)) {
+			blogPostRepository.delete(id);
+		} else {
+			throw new BlogPostNotFoundException(
+					"There is no blogpost with id " + id);
 		}
 	}
 
@@ -91,7 +105,8 @@ public class BlogPostServiceImpl implements BlogPostService {
 	 * @return
 	 */
 	private boolean assertBlogPostParameters(BlogPost blog) {
-		return StringUtils.isNotBlank(blog.getBody()) && StringUtils.isNotBlank(blog.getTitle());
+		return StringUtils.isNotBlank(blog.getBody())
+				&& StringUtils.isNotBlank(blog.getTitle());
 	}
 
 	/**
@@ -127,12 +142,25 @@ public class BlogPostServiceImpl implements BlogPostService {
 				if (StringUtils.isNotBlank(tag.getName())) {
 					Tag found = tagRepository.findByName(tag.getName());
 					if (null != found) {
-						tags.add(tag);
+						tags.add(found);
 					}
 				}
 			}
 		}
 		return tags;
+	}
+
+	private Set<Tag> getTagList(String[] tags) {
+		Set<Tag> tagList = new HashSet<Tag>();
+		if (null != tags) {
+			Arrays.asList(tags).forEach(x -> {
+				Tag t = tagRepository.findByName(x);
+				if (null != t) {
+					tagList.add(t);
+				}
+			});
+		}
+		return tagList;
 	}
 
 }

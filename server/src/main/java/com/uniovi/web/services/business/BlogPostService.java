@@ -3,6 +3,7 @@ package com.uniovi.web.services.business;
 import java.util.Set;
 
 import com.uniovi.web.services.model.BlogPost;
+import com.uniovi.web.services.model.exception.BlogPostNotFoundException;
 
 /**
  * Service for BlogPost entity
@@ -25,7 +26,7 @@ public interface BlogPostService {
 	 * @param criteria
 	 * @return
 	 */
-	Set<BlogPost> find(BlogPost criteria);
+	Set<BlogPost> find(BlogPost criteria, String[] tags);
 
 	/**
 	 * Updates an existing post
@@ -39,6 +40,7 @@ public interface BlogPostService {
 	 * Deletes an existing post
 	 * 
 	 * @param id
+	 * @throws BlogPostNotFoundException
 	 */
-	void delete(Long id);
+	void delete(Long id) throws BlogPostNotFoundException;
 }

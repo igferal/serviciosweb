@@ -2,12 +2,15 @@ package com.uniovi.web.services.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Table(name = "USER")
 @Entity
@@ -16,19 +19,23 @@ public class User extends BaseEntity {
 	@Column(name = "EMAIL_ADDRESS", unique = true, nullable = false)
 	private String email;
 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name = "PASSWORD", nullable = false)
-	@JsonIgnore
 	private String password;
 
 	@Column(name = "NAME", nullable = false)
 	private String name;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "creator")
+	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
 	private Set<BlogPost> blogPosts;
 
 	public User() {
 
+	}
+
+	public User(String email) {
+		this.email = email;
 	}
 
 	public String getEmail() {
