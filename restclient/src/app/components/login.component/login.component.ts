@@ -19,7 +19,7 @@ export class LoginComponent {
     if (this.user != "" && this.password != "")
       this.userService.login(this.user, this.password);
     else {
-      this.router.navigateByUrl("/createNews");
+      this.router.navigateByUrl("/myblogposts");
     }
   }
 }
