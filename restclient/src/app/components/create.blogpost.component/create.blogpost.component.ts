@@ -6,12 +6,12 @@ import { Component, OnInit } from "@angular/core";
 import { BlogPost } from "./../../model/blogPost";
 
 @Component({
-  selector: "createNews",
-  templateUrl: "./createNews.component.html",
-  styleUrls: ["./createNews.component.css"],
+  selector: "createBlogpost",
+  templateUrl: "./create.blogpost.component.html",
+  styleUrls: ["./create.blogpost.component.css"],
   providers: [BlogPostService, TagsService]
 })
-export class CreateNewsComponent implements OnInit {
+export class CreateBlogPostComponent implements OnInit {
   public editorContent: string = `Escribe aquí`;
 
   public articleName: string;

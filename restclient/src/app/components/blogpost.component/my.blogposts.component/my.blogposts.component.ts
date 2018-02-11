@@ -20,7 +20,7 @@ export class MyBlogPostsComponent implements OnInit {
 
   modifyBlogPost(id: string) {
   
-    this.router.navigate(["editNews",id])
+    this.router.navigate(["editBlogPost",id])
     console.log(id);
   }
 
