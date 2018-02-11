@@ -1,0 +1,32 @@
+section {
+  display: flex;
+  flex-direction: column;
+  margin: 1% 5%;
+
+  justify-content: space-around;
+}
+
+h1 {
+  color: #0c8346;
+}
+
+legend {
+  font-style: italic;
+  color: #2b4162;
+}
+
+ul{
+  list-style: none;
+  display: inline-flex;
+  flex-direction: row-reverse;
+
+}
+
+ul li{
+
+  margin-right: 5px;
+  padding: 4px 8px;
+  color: white;
+  background: #2b4162;
+  border-radius: 4px;
+}
