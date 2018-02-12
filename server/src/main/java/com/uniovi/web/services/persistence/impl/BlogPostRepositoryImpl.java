@@ -92,10 +92,12 @@ public class BlogPostRepositoryImpl extends BaseRepository<BlogPost>
 				if (null != criteria.getTags()
 						&& !criteria.getTags().isEmpty()) {
 
-					CriteriaQuery<BlogPost> q = builder
+					CriteriaBuilder criteriaBuilder = entitymanager.getCriteriaBuilder();
+					
+					CriteriaQuery<BlogPost> q = criteriaBuilder
 							.createQuery(BlogPost.class);
 
-					Root<BlogPost> child = query.from(BlogPost.class);
+					Root<BlogPost> child = q.from(BlogPost.class);
 					Join<BlogPost, Tag> parent = child.join(BlogPost_.tags);
 					q.where(parent.in(criteria.getTags()));
 

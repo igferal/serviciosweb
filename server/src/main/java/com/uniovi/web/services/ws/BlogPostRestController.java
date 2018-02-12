@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,7 +39,6 @@ public class BlogPostRestController {
 			@RequestParam(value = "tags", required = false) String[] tags) {
 
 		try {
-			System.out.println("HOLA");
 			return new ResponseEntity<>(
 					blogPostService.find(
 							new BlogPost(id, new User(creatorEmail)), tags),
@@ -64,8 +64,8 @@ public class BlogPostRestController {
 		return new ResponseEntity<Object>(HttpStatus.CREATED);
 	}
 
-	@RequestMapping(path = API_PATH, method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathParam("id") Long id) {
+	@RequestMapping(path = API_PATH + "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 
 		try {
 			blogPostService.delete(id);
