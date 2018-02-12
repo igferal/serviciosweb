@@ -34,6 +34,7 @@ public class BlogPostRestController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<?> get(
 			@RequestParam(value = "id", required = false) Long id,
+			@RequestParam(value = "title", required = false) String title,
 			@RequestParam(value = "creatorEmail",
 					required = false) String creatorEmail,
 			@RequestParam(value = "tags", required = false) String[] tags) {
@@ -41,8 +42,8 @@ public class BlogPostRestController {
 		try {
 			return new ResponseEntity<>(
 					blogPostService.find(
-							new BlogPost(id, new User(creatorEmail)), tags),
-					HttpStatus.OK);
+							new BlogPost(id, new User(creatorEmail), title), tags),
+					HttpStatus.OK); 
 		} catch (IllegalArgumentException iax) {
 			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
 					iax.getLocalizedMessage());

@@ -41,10 +41,11 @@ public class BlogPost extends BaseEntity {
 		super();
 	}
 
-	public BlogPost(Long id, User creator) {
+	public BlogPost(Long id, User creator, String title) {
 		super();
 		this.id = id;
 		this.creator = creator;
+		this.title = title;
 	}
 
 	public User getCreator() {
