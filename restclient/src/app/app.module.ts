@@ -8,10 +8,10 @@ import { NgModule } from "@angular/core";
 import { FroalaEditorModule, FroalaViewModule } from "angular-froala-wysiwyg";
 import { AppComponent } from "./components/app.component";
 import { AppRoutingModule } from "./components/router.module/router.module";
-import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { LoginComponent } from "./components/login.component/login.component";
 import { SignUpComponent } from "./components/sign.up.component/sign.up.component";
+import { HttpModule } from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { SignUpComponent } from "./components/sign.up.component/sign.up.componen
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule,
+    HttpModule,
     FormsModule
   ],
   providers: [UserService],

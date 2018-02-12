@@ -42,7 +42,7 @@ public class CORSFilter implements Filter {
 					"Origin, X-Requested-With, Content-Type, Accept, authorization, email, password");
 		} else {
 			response.setHeader("Access-Control-Allow-Headers",
-					"Origin, X-Requested-With, Content-Type, Accept, authorization");
+					"Origin, X-Requested-With, Content-Type, Accept, authorization,jwt-auth");
 		}
 
 		if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {

@@ -15,11 +15,10 @@ export class LoginComponent {
   constructor(public userService: UserService, public router: Router) {}
 
   public logUser(): void {
-    
-    if (this.user != "" && this.password != "")
-      this.userService.login(this.user, this.password);
-    else {
-      this.router.navigateByUrl("/myblogposts");
+    if (this.user != "" && this.password != "") {
+      this.userService.login(this.user, this.password).subscribe(res => {
+        this.router.navigateByUrl("/myblogposts");
+      });
     }
   }
 }

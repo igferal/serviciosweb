@@ -1,20 +1,21 @@
 <header>
   <nav class="spaced">
-    <a href="" class="none"></a>
-    <a class="logo" href="/">Uonewsfeed</a>
+    <a routerLink="" class="none"></a>
+    <a class="logo" routerLink="/">Uonewsfeed</a>
     <div>
-      <a *ngIf="!logged" class="signup" href="signUp">Crear Usuario</a>
-      <a *ngIf="!logged" class="login" href="/login">Iniciar sesión</a>
+      <a *ngIf="userService.token ==null" class="signup" routerLink="signUp">Crear Usuario</a>
+      <a *ngIf="userService.token ==null" class="login" routerLink="/login">Iniciar sesión</a>
+      <button *ngIf="userService.token !=null" class="signup" (click)="closeSession()">Cerrar sesión</button>
+
     </div>
   </nav>
   <nav class="navLinks">
-    <a class="link" href="">Programación</a>
-    <a class="link" href="">User experience</a>
-    <a class="link" href="">Tecnología</a>
-    <a class="link" href="">Big Data</a>
-    <a class="link" href="myblogposts">Mis Articulos</a>
-    <a class="link" href="signUp">Crear Usuario</a>
-    <a class="link" href="createBlogPost">Crear Noticia</a>
+    <a class="link" routerLink="">Programación</a>
+    <a class="link" routerLink="">User experience</a>
+    <a class="link" routerLink="">Tecnología</a>
+    <a class="link" routerLink="">Big Data</a>
+    <a class="link" *ngIf="userService.token !=null" routerLink="myblogposts">Mis Articulos</a>
+    <a class="link"  *ngIf="userService.token !=null" routerLink="createBlogPost">Crear Noticia</a>
   </nav>
 </header>
 <main>

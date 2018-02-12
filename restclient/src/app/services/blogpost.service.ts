@@ -1,10 +1,10 @@
 import { BlogPost } from "./../model/blogPost";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Http } from "@angular/http";
 import { Injectable } from "@angular/core";
 
 @Injectable()
 export class BlogPostService {
-  constructor(public http: HttpClient) {}
+  constructor(public http: Http) {}
 
   private endpoint: string = "http://156.35.98.44:8080/restapi/blogpost";
 

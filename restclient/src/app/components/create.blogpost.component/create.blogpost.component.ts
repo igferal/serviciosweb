@@ -19,7 +19,8 @@ export class CreateBlogPostComponent implements OnInit {
   constructor(
     public blogPostService: BlogPostService,
     public tagsService: TagsService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public userService: UserService
   ) {}
 
   createArticle(a: BlogPost): void {
@@ -43,7 +44,9 @@ export class CreateBlogPostComponent implements OnInit {
         this.blogpost.content = bp.content;
         this.blogpost.title = bp.title;
       } else {
-        this.tags = this.tagsService.getTags().tags;
+        this.tagsService
+          .getTags(this.userService.token)
+          .subscribe(tags => this.tags = tags.json());
       }
     });
   }

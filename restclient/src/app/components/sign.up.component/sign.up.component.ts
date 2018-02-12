@@ -5,9 +5,9 @@ import { Router } from "@angular/router";
 @Component({
   selector: "signUp",
   templateUrl: "./sign.up.component.html",
-  styleUrls: ["./sign.up.component.css"]})
+  styleUrls: ["./sign.up.component.css"]
+})
 export class SignUpComponent {
-
   public email: string = "";
 
   public user: string = "";
@@ -18,5 +18,7 @@ export class SignUpComponent {
 
   constructor(public userService: UserService, public router: Router) {}
 
-  public signUp(): void {}
+  public createUser(): void {
+    this.userService.signUp(this.user, this.password, this.email);
+  }
 }

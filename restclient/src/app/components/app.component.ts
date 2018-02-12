@@ -8,14 +8,15 @@ import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit {
-  public logged: any;
-
+ 
   constructor(public userService: UserService) {}
 
   public ngOnInit() {
-    console.log("entrando");
-    this.logged = this.userService.getUser();
-    console.log(this.logged);
+  
     
+  }
+
+  closeSession(){
+    this.userService.closeSession();
   }
 }
