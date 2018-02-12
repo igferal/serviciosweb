@@ -16,6 +16,10 @@ export class CreateBlogPostComponent implements OnInit {
 
   public tags: Array<String>;
 
+  public modifying = false;
+
+  public buttonText = "Crear BlogPost";
+
   constructor(
     public blogPostService: BlogPostService,
     public tagsService: TagsService,
@@ -24,11 +28,21 @@ export class CreateBlogPostComponent implements OnInit {
   ) {}
 
   createArticle(a: BlogPost): void {
-    this.blogPostService
-      .createBlogpost(this.blogpost, this.userService.token)
-      .subscribe(res => {
-        console.log(res);
-      });
+    if (this.modifying) {
+
+      this.blogPostService
+        .modifyBlogPost(this.blogpost, this.userService.token)
+        .subscribe(res => {
+          console.log(res);
+        });
+
+    } else {
+      this.blogPostService
+        .createBlogpost(this.blogpost, this.userService.token)
+        .subscribe(res => {
+          console.log(res);
+        });
+    }
   }
 
   public addTag(tag: string) {
@@ -44,9 +58,11 @@ export class CreateBlogPostComponent implements OnInit {
   ngOnInit() {
     let suscription = this.route.params.subscribe(id => {
       if (null != id.id) {
-        let bp = this.blogPostService.getBlogPostById(id.id);
-        this.blogpost.body = bp.body;
-        this.blogpost.title = bp.title;
+        this.blogPostService.getBlogPostById(id.id).subscribe(res => {
+          this.blogpost = res.json()[0];
+          this.modifying = true;
+          this.buttonText = "Modificar Blogpost";
+        });
       } else {
         this.tagsService
           .getTags(this.userService.token)

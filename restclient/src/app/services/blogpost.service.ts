@@ -22,24 +22,19 @@ export class BlogPostService {
     return this.http.get(`${this.endpoint}/blogpost?id=${id}`);
   }
 
-  public getMyArticles() {
-    return [
-      {
-        id: "1",
-        title: "Si ya saben como me pongo pa que ",
-        date: new Date()
-      },
-      {
-        title: "Si ya saben como me puse",
-        id: "2",
-        date: new Date()
-      },
-      {
-        title: "Honda brum brum",
-        id: "3",
-        date: new Date()
-      }
-    ];
+  public getMyArticles(userEmail: string) {
+    return this.http.get(`${this.endpoint}/blogpost?creatorEmail=${userEmail}`);
+  }
+
+  public modifyBlogPost(blogpost: BlogPost, token: string) {
+    let options = this.getHeadersWithToken(token);
+    return this.http.put(`${this.endpoint}api/blogpost`, blogpost, options);
+  }
+
+  public deleteBlogPost(blogpost: BlogPost, token: string) {
+    let options = this.getHeadersWithToken(token);
+
+    //this.http.delete(`${this.endpoint}api/blogpost`,blogpost,options)
   }
 
   private getHeadersWithToken(token: string): RequestOptions {
