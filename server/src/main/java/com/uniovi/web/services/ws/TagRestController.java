@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uniovi.web.services.business.TagService;
 
-@RestController("/api/tag")
+@RestController("/tag")
 public class TagRestController {
 
 	@Autowired
