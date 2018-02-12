@@ -63,10 +63,10 @@ public class BlogPostRestController {
 
 	@RequestMapping(path = API_PATH, method = RequestMethod.DELETE,
 			consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> delete(@RequestBody BlogPost blogPost) {
+	public ResponseEntity<?> delete(@RequestParam(value = "id", required = true) Long id) {
 
 		try {
-			blogPostService.delete(blogPost.getId());
+			blogPostService.delete(id);
 		} catch (IllegalArgumentException | BlogPostNotFoundException iax) {
 			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
 					iax.getLocalizedMessage());
