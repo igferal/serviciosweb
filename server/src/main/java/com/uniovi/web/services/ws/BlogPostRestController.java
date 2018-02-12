@@ -1,5 +1,7 @@
 package com.uniovi.web.services.ws;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,6 +38,7 @@ public class BlogPostRestController {
 			@RequestParam(value = "tags", required = false) String[] tags) {
 
 		try {
+			System.out.println("HOLA");
 			return new ResponseEntity<>(
 					blogPostService.find(
 							new BlogPost(id, new User(creatorEmail)), tags),
@@ -61,9 +64,8 @@ public class BlogPostRestController {
 		return new ResponseEntity<Object>(HttpStatus.CREATED);
 	}
 
-	@RequestMapping(path = API_PATH, method = RequestMethod.DELETE,
-			consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> delete(@RequestParam(value = "id", required = true) Long id) {
+	@RequestMapping(path = API_PATH, method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@PathParam("id") Long id) {
 
 		try {
 			blogPostService.delete(id);
