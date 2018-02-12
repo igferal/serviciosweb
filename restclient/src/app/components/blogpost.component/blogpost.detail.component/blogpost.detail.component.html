@@ -1,11 +1,11 @@
 <section>
-  <h1>{{article.title}} {{id}}</h1>
-  <legend> {{article.date |date}}</legend>
+  <h1>{{blogpost.title}} {{id}}</h1>
+  <legend> {{blogpost.creationDate |date}}</legend>
 
-  <div [innerHTML]="article.content"></div>
+  <div [innerHTML]="blogpost.body"></div>
   <ul>
-    <li *ngFor="let tag of article.tags">
-      {{tag}}
+    <li *ngFor="let tag of blogpost.tags">
+      {{tag.name}}
     </li>
   </ul>
 

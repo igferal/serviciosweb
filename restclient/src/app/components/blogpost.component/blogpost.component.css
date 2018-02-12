@@ -15,6 +15,7 @@ section {
   display: inline-flex;
   width: 100%;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 article {

@@ -24,7 +24,11 @@ export class CreateBlogPostComponent implements OnInit {
   ) {}
 
   createArticle(a: BlogPost): void {
-    this.blogPostService.createBlogpost(this.blogpost);
+    this.blogPostService
+      .createBlogpost(this.blogpost, this.userService.token)
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 
   public addTag(tag: string) {
@@ -41,12 +45,12 @@ export class CreateBlogPostComponent implements OnInit {
     let suscription = this.route.params.subscribe(id => {
       if (null != id.id) {
         let bp = this.blogPostService.getBlogPostById(id.id);
-        this.blogpost.content = bp.content;
+        this.blogpost.body = bp.body;
         this.blogpost.title = bp.title;
       } else {
         this.tagsService
           .getTags(this.userService.token)
-          .subscribe(tags => this.tags = tags.json());
+          .subscribe(tags => (this.tags = tags.json()));
       }
     });
   }

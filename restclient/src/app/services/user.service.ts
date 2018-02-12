@@ -1,16 +1,17 @@
 import { Http, Response, RequestOptions, Headers } from "@angular/http";
 import { Injectable, transition } from "@angular/core";
+import { CanActivate, Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 
 @Injectable()
-export class UserService {
+export class UserService implements CanActivate {
   private endpoint: string = "http://localhost:8443";
 
   public user: string;
 
   public token: string;
 
-  constructor(public http: Http) {
+  constructor(public http: Http, private router: Router) {
     console.log("Me creo");
   }
 
@@ -53,5 +54,13 @@ export class UserService {
 
   public getUser() {
     return this.user;
+  }
+
+  public canActivate(): boolean {
+    if (this.token == null) {
+      this.router.navigate(["/login"]);
+    }
+
+    return this.token != null;
   }
 }

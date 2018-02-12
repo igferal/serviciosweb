@@ -10,10 +10,7 @@
     </div>
   </nav>
   <nav class="navLinks">
-    <a class="link" routerLink="">Programación</a>
-    <a class="link" routerLink="">User experience</a>
-    <a class="link" routerLink="">Tecnología</a>
-    <a class="link" routerLink="">Big Data</a>
+    <a class="link" routerLink="">Blogposts</a>
     <a class="link" *ngIf="userService.token !=null" routerLink="myblogposts">Mis Articulos</a>
     <a class="link"  *ngIf="userService.token !=null" routerLink="createBlogPost">Crear Noticia</a>
   </nav>

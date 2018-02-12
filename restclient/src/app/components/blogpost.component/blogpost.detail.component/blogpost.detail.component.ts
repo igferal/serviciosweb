@@ -1,3 +1,4 @@
+import { BlogPost } from "./../../../model/blogPost";
 import { BlogPostService } from "./../../../services/blogpost.service";
 import { Component } from "@angular/core";
 import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
@@ -14,7 +15,7 @@ import "rxjs/add/operator/switchMap";
 export class BlogPostDetailComponent implements OnInit {
   public id: string;
 
-  public article;
+  public blogpost: BlogPost = new BlogPost("","",new Date(),[]);
 
   constructor(
     public route: ActivatedRoute,
@@ -28,6 +29,9 @@ export class BlogPostDetailComponent implements OnInit {
         console.log("Ruta inicializada");
       });
 
-    this.article = this.blogPostService.getBlogPostById(this.id);
+    this.blogPostService.getBlogPostById(this.id).subscribe(res => {
+      console.log(res.json());
+      this.blogpost = res.json()[0];
+    });
   }
 }

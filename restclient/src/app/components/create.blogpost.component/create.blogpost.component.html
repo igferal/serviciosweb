@@ -4,7 +4,7 @@
     <label>Nombre artículo</label>
     <input [(ngModel)]="blogpost.title" name="articleName" type="text" placeholder="" />
     <br/>
-    <div [froalaEditor] [(froalaModel)]="blogpost.content"></div>
+    <div [froalaEditor] [(froalaModel)]="blogpost.body"></div>
     <br/>
     <ul class="inline">
         <li class="inline" *ngFor="let tag of tags">
