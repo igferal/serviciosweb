@@ -4,8 +4,12 @@ section {
   justify-content: center;
 }
 
-tr{
-    padding: 0% 2%;
+table {
+  width: 80%;
+}
+
+tr {
+  padding: 0% 2%;
 }
 
 th {
@@ -16,12 +20,12 @@ th {
   text-align: center;
 }
 
-td{
-    width: auto;
-    background-color: rgb(238, 238, 238);
-    font-size: 1.1em;
-    padding: 2px 20px;
-
+td {
+  width: auto;
+  background-color: rgb(238, 238, 238);
+  font-size: 1.1em;
+  padding: 2px 20px;
+  text-align: center;
 }
 
 .btn-main {

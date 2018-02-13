@@ -40,7 +40,7 @@ export class MyBlogPostsComponent implements OnInit {
     this.blogPostService
       .deleteBlogPost(id, this.userService.token)
       .subscribe(
-        res => this.router.navigateByUrl("myblogposts"),
+        res => this.router.navigateByUrl("blogpost"),
         err =>
           this.notifierService.notify("error", "Error borrandoe el artículo")
       );

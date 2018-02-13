@@ -34,7 +34,7 @@ public class BlogPost extends BaseEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Tag> tags;
 
 	public BlogPost() {

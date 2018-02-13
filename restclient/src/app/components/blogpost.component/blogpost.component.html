@@ -1,6 +1,6 @@
 <section>
   <article *ngFor="let blogpost of blogposts">
-    <img src="https://www.rust-lang.org/logos/rust-logo-512x512-blk.png" alt="" srcset="">
+    <img src="{{gifs[blogpost.id].images.original.url}}" alt="" srcset="">
     <h1>{{blogpost.title}}</h1>
     <p>Por {{blogpost.creator.name}} en {{blogpost.creationDate | date}}</p>
     <button (click)="goToDetail(blogpost.id)" class="btn-main right">Leer</button>
