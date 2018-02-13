@@ -48,7 +48,7 @@ export class CreateBlogPostComponent implements OnInit {
 
   private modify() {
     this.blogPostService
-      .modifyBlogPost(this.blogpost, this.userService.token)
+      .modifyBlogPost(this.blogpost, localStorage.getItem("token"))
       .subscribe(
         res => this.router.navigateByUrl("myblogposts"),
         err => this.notifierService.notify("error", "Error en el server")
@@ -57,7 +57,7 @@ export class CreateBlogPostComponent implements OnInit {
 
   private createBlogPost() {
     this.blogPostService
-      .createBlogpost(this.blogpost, this.userService.token)
+      .createBlogpost(this.blogpost, localStorage.getItem("token"))
       .subscribe(
         res => this.router.navigateByUrl("myblogposts"),
         err => this.notifierService.notify("error", "Error en el server")

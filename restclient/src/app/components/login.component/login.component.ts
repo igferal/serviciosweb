@@ -27,8 +27,8 @@ export class LoginComponent {
         res => {
           if (res.json().token != null) {
             let response = res.json();
-            this.userService.user = response.email;
-            this.userService.token = response.token;
+            localStorage.setItem("token",response.token);
+            localStorage.setItem("email",response.email);
             this.router.navigateByUrl("/myblogposts");
           }
         },

@@ -7,10 +7,6 @@ import { Observable } from "rxjs/Observable";
 export class UserService implements CanActivate {
   private endpoint: string = "http://localhost:8443";
 
-  public user: string;
-
-  public token: string;
-
   constructor(public http: Http, private router: Router) {
     console.log("Me creo");
   }
@@ -19,37 +15,29 @@ export class UserService implements CanActivate {
     let headers = new Headers({ Email: btoa(user), Password: btoa(password) });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(
-      this.endpoint + "/api/auth/login",
-      {},
-      options
-    );
-
+    return this.http.post(this.endpoint + "/api/auth/login", {}, options);
   }
 
   public closeSession() {
-    this.user = null;
-    this.token = null;
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+
   }
 
   public signUp(user: string, password, email: string) {
-    return this.http
-      .post(this.endpoint + "/user", {
-        name: user,
-        password: password,
-        email: email
-      });
-  }
-
-  public getUser() {
-    return this.user;
+    return this.http.post(this.endpoint + "/user", {
+      name: user,
+      password: password,
+      email: email
+    });
   }
 
   public canActivate(): boolean {
-    if (this.token == null) {
+    if (localStorage.getItem("token") == null) {
       this.router.navigate(["/login"]);
     }
 
-    return this.token != null;
+    return localStorage.getItem("token") != null;
   }
 }

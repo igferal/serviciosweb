@@ -25,7 +25,7 @@ export class MyBlogPostsComponent implements OnInit {
 
   ngOnInit() {
     this.blogPostService
-      .getMyArticles(this.userService.user)
+      .getMyArticles(localStorage.getItem("email"))
       .subscribe(posts => {
         this.blogposts = posts.json();
       });
@@ -38,7 +38,7 @@ export class MyBlogPostsComponent implements OnInit {
   deleteBlogPost(id: string) {
     console.log(id);
     this.blogPostService
-      .deleteBlogPost(id, this.userService.token)
+      .deleteBlogPost(id, localStorage.getItem("token"))
       .subscribe(
         res => this.router.navigateByUrl("blogpost"),
         err =>

@@ -23,6 +23,10 @@ export class AppComponent implements OnInit {
     this.tagsService.getTags().subscribe(tags => (this.tags = tags.json()));
   }
 
+  public isLogged(): boolean {
+    return localStorage.getItem("token") != null;
+  }
+
   closeSession() {
     this.userService.closeSession();
     this.router.navigateByUrl("login");
