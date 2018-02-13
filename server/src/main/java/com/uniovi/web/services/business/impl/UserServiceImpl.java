@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void save(User user) throws UserAlreadyExistsException {
 		if (null == user || !assertUserParameters(user)) {
-			throw new IllegalArgumentException("User parameters required");
+			throw new IllegalArgumentException("User parameters required: name, password and email");
 		}
 		if (null != user.getId()) {
 			throw new IllegalArgumentException("Update for an existing user");

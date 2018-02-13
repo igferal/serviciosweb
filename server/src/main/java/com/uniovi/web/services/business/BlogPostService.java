@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.uniovi.web.services.model.BlogPost;
 import com.uniovi.web.services.model.exception.BlogPostNotFoundException;
+import com.uniovi.web.services.model.exception.UserNotFoundException;
 
 /**
  * Service for BlogPost entity
@@ -17,8 +18,9 @@ public interface BlogPostService {
 	 * Saves a new post
 	 * 
 	 * @param blog
+	 * @throws UserNotFoundException 
 	 */
-	void save(BlogPost blog);
+	void save(BlogPost blog, String creatorEmail) throws UserNotFoundException;
 
 	/**
 	 * Finds posts by criteria
@@ -37,10 +39,10 @@ public interface BlogPostService {
 	BlogPost update(BlogPost blogPost);
 
 	/**
-	 * Deletes an existing post
+	 * Deletes an existing post and returns it
 	 * 
 	 * @param id
 	 * @throws BlogPostNotFoundException
 	 */
-	void delete(Long id) throws BlogPostNotFoundException;
+	BlogPost delete(Long id) throws BlogPostNotFoundException;
 }

@@ -5,6 +5,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Clase con la información base de todas las entidades
  * 
@@ -15,6 +17,7 @@ import javax.persistence.MappedSuperclass;
 public class BaseEntity {
 
 	@Id
+	@JsonIgnore
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 

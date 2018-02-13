@@ -1,8 +1,8 @@
 package com.uniovi.web.services.ws;
 
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +18,7 @@ import com.uniovi.web.services.business.BlogPostService;
 import com.uniovi.web.services.model.BlogPost;
 import com.uniovi.web.services.model.User;
 import com.uniovi.web.services.model.exception.BlogPostNotFoundException;
+import com.uniovi.web.services.model.exception.UserNotFoundException;
 import com.uniovi.web.services.ws.util.ApiError;
 
 @RestController()
@@ -52,44 +53,56 @@ public class BlogPostRestController {
 	}
 
 	@RequestMapping(path = API_PATH, method = RequestMethod.POST,
-			consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> post(@RequestBody BlogPost blogPost) {
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Object> post(@RequestBody BlogPost blogPost, 
+			@RequestParam(value = "creatorEmail", required = true) String creatorEmail) {
 
+		HttpHeaders headers = new HttpHeaders();
 		try {
-			blogPostService.save(blogPost);
+			blogPostService.save(blogPost, creatorEmail);
+			headers.add("location", "/blogpost?id="+blogPost.getId());
 		} catch (IllegalArgumentException iax) {
 			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
 					iax.getLocalizedMessage());
 			return new ResponseEntity<Object>(apiError, apiError.getStatus());
+		} catch (UserNotFoundException e) {
+			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
+					e.getLocalizedMessage());
+			return new ResponseEntity<Object>(apiError, apiError.getStatus());
 		}
-		return new ResponseEntity<Object>(HttpStatus.CREATED);
+		return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(blogPost);
 	}
 
-	@RequestMapping(path = API_PATH + "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = API_PATH + "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-
+		
+		BlogPost deleted = null;
 		try {
-			blogPostService.delete(id);
+			deleted = blogPostService.delete(id);
 		} catch (IllegalArgumentException | BlogPostNotFoundException iax) {
 			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
 					iax.getLocalizedMessage());
 			return new ResponseEntity<Object>(apiError, apiError.getStatus());
 		}
-		return new ResponseEntity<Object>(HttpStatus.OK);
+		return new ResponseEntity<Object>(deleted, HttpStatus.OK);
 	}
 
 	@RequestMapping(path = API_PATH, method = RequestMethod.PUT,
-			consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> put(@RequestBody BlogPost blogPost) {
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> put(@RequestBody BlogPost blogPost) {
 
+		HttpHeaders headers = new HttpHeaders();
 		try {
 			blogPostService.update(blogPost);
+			headers.add("location", "/blogpost?id="+blogPost.getId());
 		} catch (IllegalArgumentException iax) {
 			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
 					iax.getLocalizedMessage());
 			return new ResponseEntity<Object>(apiError, apiError.getStatus());
 		}
-		return new ResponseEntity<Object>(HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(blogPost);
 	}
 
 }

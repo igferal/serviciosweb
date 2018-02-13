@@ -14,6 +14,7 @@ import com.uniovi.web.services.model.BlogPost;
 import com.uniovi.web.services.model.Tag;
 import com.uniovi.web.services.model.User;
 import com.uniovi.web.services.model.exception.BlogPostNotFoundException;
+import com.uniovi.web.services.model.exception.UserNotFoundException;
 import com.uniovi.web.services.persistence.BlogPostRepository;
 import com.uniovi.web.services.persistence.TagRepository;
 import com.uniovi.web.services.persistence.UserRepository;
@@ -37,18 +38,19 @@ public class BlogPostServiceImpl implements BlogPostService {
 	private TagRepository tagRepository;
 
 	@Override
-	public void save(BlogPost blog) {
-		if (null == blog || !assertBlogPostParameters(blog)) {
+	public void save(BlogPost blog,  String email) throws UserNotFoundException { 
+		if (null == blog || !assertBlogPostParameters(blog) || StringUtils.isBlank(email)) {
 			throw new IllegalArgumentException("BlogPost parameters required");
-		}
-		if (!assertCreatorExists(blog)) {
-			throw new IllegalArgumentException(
-					"BlogPost valid creator required");
 		}
 		if (null != blog.getId()) {
 			throw new IllegalArgumentException(
 					"Update for an existing blogpost");
 		}
+		User user = userRepository.findByEmail(email);
+		if (null == user) {
+			throw new UserNotFoundException("Email does not belong to an existing user");
+		}
+		blog.setCreator(user);
 		blog.setTags(getBlogTags(blog));
 		blog.setCreationDate(new Date());
 		blogPostRepository.save(blog);
@@ -86,16 +88,18 @@ public class BlogPostServiceImpl implements BlogPostService {
 	}
 
 	@Override
-	public void delete(Long id) throws BlogPostNotFoundException {
+	public BlogPost delete(Long id) throws BlogPostNotFoundException {
 		if (null == id) {
 			throw new IllegalArgumentException("BlogPost id required");
 		}
-		if (null != blogPostRepository.findOne(id)) {
-			blogPostRepository.delete(id);
+		BlogPost deleted = blogPostRepository.findOne(id);
+		if (null != deleted) {
+			blogPostRepository.delete(deleted);
 		} else {
 			throw new BlogPostNotFoundException(
 					"There is no blogpost with id " + id);
 		}
+		return deleted;
 	}
 
 	/**
