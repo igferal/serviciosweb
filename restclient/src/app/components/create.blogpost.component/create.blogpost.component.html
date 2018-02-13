@@ -1,5 +1,5 @@
 <form (ngSubmit)="sendForm()" #createNews="ngForm">
-
+    <notifier-container></notifier-container>
     <h1>Crear noticia</h1>
     <label>Nombre artículo</label>
     <input [(ngModel)]="blogpost.title" name="articleName" type="text" placeholder="" />

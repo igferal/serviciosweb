@@ -1,3 +1,4 @@
+import { NotifierService } from "angular-notifier";
 import { Http } from "@angular/http";
 import { BlogPost } from "./../../../model/blogPost";
 import { UserService } from "./../../../services/user.service";
@@ -18,7 +19,8 @@ export class MyBlogPostsComponent implements OnInit {
   constructor(
     public router: Router,
     public blogPostService: BlogPostService,
-    public userService: UserService
+    public userService: UserService,
+    public notifierService: NotifierService
   ) {}
 
   ngOnInit() {
@@ -39,7 +41,8 @@ export class MyBlogPostsComponent implements OnInit {
       .deleteBlogPost(id, this.userService.token)
       .subscribe(
         res => this.router.navigateByUrl("myblogposts"),
-        err => alert("Error borrando")
+        err =>
+          this.notifierService.notify("error", "Error borrandoe el artículo")
       );
   }
 }

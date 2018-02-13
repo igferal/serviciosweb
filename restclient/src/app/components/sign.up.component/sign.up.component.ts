@@ -1,3 +1,4 @@
+import { NotifierService } from "angular-notifier";
 import { UserService } from "./../../services/user.service";
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
@@ -16,7 +17,11 @@ export class SignUpComponent {
 
   public repeatPassword: string = "";
 
-  constructor(public userService: UserService, public router: Router) {}
+  constructor(
+    public userService: UserService,
+    public router: Router,
+    public notifierService: NotifierService
+  ) {}
 
   public createUser(): void {
     if (this.validateEmail() == false || this.checkPasswords() == false) {
@@ -27,13 +32,16 @@ export class SignUpComponent {
       .signUp(this.user, this.password, this.email)
       .subscribe(
         res => this.router.navigateByUrl("login"),
-        err => alert("Pruebe de nuevo")
+        err => this.notifierService.notify("error", "Error en el server")
       );
   }
 
   public checkPasswords() {
     if (this.password != this.repeatPassword) {
-      alert("Las contraseñas no coinciden");
+      this.notifierService.notify(
+        "error",
+        "Las contraseñas tienen que coincidir"
+      );
       this.repeatPassword = "";
       this.password = "";
       return false;
@@ -44,7 +52,8 @@ export class SignUpComponent {
   public validateEmail() {
     let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (regex.test(this.email.toLowerCase()) == false) {
-      alert("Proporcione un email valido");
+      this.notifierService.notify("error", "Mail invalido");
+
       return false;
     }
     return true;

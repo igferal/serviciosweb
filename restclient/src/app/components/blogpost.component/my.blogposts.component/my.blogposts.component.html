@@ -1,5 +1,5 @@
 <section>
-
+  <notifier-container></notifier-container>
   <table>
     <thead>
       <th>Titulo</th>
@@ -11,8 +11,12 @@
       <tr *ngFor="let blogpost of blogposts">
         <td>{{blogpost.title}}</td>
         <td>{{blogpost.creationDate | date}}</td>
-        <td><button (click)="modifyBlogPost(blogpost.id)" class="btn-main">Modificar</button></td>
-        <td><button (click)="deleteBlogPost(blogpost.id)" class="btn-main delete">Borrar</button></td>
+        <td>
+          <button (click)="modifyBlogPost(blogpost.id)" class="btn-main">Modificar</button>
+        </td>
+        <td>
+          <button (click)="deleteBlogPost(blogpost.id)" class="btn-main delete">Borrar</button>
+        </td>
       </tr>
     </tbody>
   </table>

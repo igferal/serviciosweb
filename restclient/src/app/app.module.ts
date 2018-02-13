@@ -12,6 +12,7 @@ import { FormsModule } from "@angular/forms";
 import { LoginComponent } from "./components/login.component/login.component";
 import { SignUpComponent } from "./components/sign.up.component/sign.up.component";
 import { HttpModule } from "@angular/http";
+import { NotifierModule } from 'angular-notifier';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HttpModule } from "@angular/http";
     FroalaViewModule.forRoot(),
     AppRoutingModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    NotifierModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

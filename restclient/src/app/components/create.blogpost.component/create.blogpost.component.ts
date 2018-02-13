@@ -1,3 +1,4 @@
+import { NotifierService } from "angular-notifier";
 import { UserService } from "./../../services/user.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { BlogPostService } from "./../../services/blogpost.service";
@@ -25,12 +26,16 @@ export class CreateBlogPostComponent implements OnInit {
     public tagsService: TagsService,
     public route: ActivatedRoute,
     public userService: UserService,
-    public router: Router
+    public router: Router,
+    public notifierService: NotifierService
   ) {}
 
   public sendForm(): void {
     if (this.blogpost.title === "" || this.blogpost.body === "") {
-      alert("El articulo debe tener titulo y contenido");
+      this.notifierService.notify(
+        "error",
+        "El articulo debe tener titulo y contenido"
+      );
       return;
     }
 
@@ -46,7 +51,7 @@ export class CreateBlogPostComponent implements OnInit {
       .modifyBlogPost(this.blogpost, this.userService.token)
       .subscribe(
         res => this.router.navigateByUrl("myblogposts"),
-        err => alert("error en la petición")
+        err => this.notifierService.notify("error", "Error en el server")
       );
   }
 
@@ -55,7 +60,7 @@ export class CreateBlogPostComponent implements OnInit {
       .createBlogpost(this.blogpost, this.userService.token)
       .subscribe(
         res => this.router.navigateByUrl("myblogposts"),
-        err => alert("error en la petición")
+        err => this.notifierService.notify("error", "Error en el server")
       );
   }
 

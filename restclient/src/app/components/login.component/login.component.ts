@@ -1,6 +1,7 @@
 import { UserService } from "./../../services/user.service";
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
+import { NotifierService } from "angular-notifier";
 
 @Component({
   selector: "login",
@@ -12,10 +13,16 @@ export class LoginComponent {
 
   public password: string = "";
 
-  constructor(public userService: UserService, public router: Router) {}
+  constructor(
+    public userService: UserService,
+    public router: Router,
+    public notifierService: NotifierService
+  ) {}
 
   public logUser(): void {
-    if (this.user != "" && this.password != "") {
+    if (this.user == "" || this.password == "") {
+      this.notifierService.notify("error", "Introduzca usuario y contraseña");
+    } else {
       this.userService.login(this.user, this.password).subscribe(
         res => {
           if (res.json().token != null) {
@@ -26,7 +33,7 @@ export class LoginComponent {
           }
         },
         err => {
-          alert("Usuario y contraseña no existentes");
+          this.notifierService.notify("error", "Usuario inexistente");
         }
       );
     }
