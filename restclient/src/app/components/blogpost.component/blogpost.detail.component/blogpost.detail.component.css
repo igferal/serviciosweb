@@ -15,18 +15,20 @@ legend {
   color: #2b4162;
 }
 
-ul{
+ul {
   list-style: none;
   display: inline-flex;
   flex-direction: row-reverse;
-
 }
 
-ul li{
-
+.tag {
   margin-right: 5px;
   padding: 4px 8px;
   color: white;
   background: #2b4162;
   border-radius: 4px;
+  text-decoration: none;
+}
+.tag:hover {
+  transform: scale(1.1em);
 }

@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+import { Http } from "@angular/http";
 import { BlogPost } from "./../../../model/blogPost";
 import { UserService } from "./../../../services/user.service";
 import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
@@ -31,10 +31,15 @@ export class MyBlogPostsComponent implements OnInit {
 
   modifyBlogPost(id: string) {
     this.router.navigate(["editBlogPost", id]);
-    console.log(id);
   }
 
-  deleteBlogPost(blogpost: BlogPost) {
-    
+  deleteBlogPost(id: string) {
+    console.log(id);
+    this.blogPostService
+      .deleteBlogPost(id, this.userService.token)
+      .subscribe(
+        res => this.router.navigateByUrl("myblogposts"),
+        err => alert("Error borrando")
+      );
   }
 }

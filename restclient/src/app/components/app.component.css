@@ -20,7 +20,7 @@ header {
   margin-bottom: 3px;
 }
 
-.link:hover {
+.link:hover,li:hover {
   border-bottom: 2px dashed white;
 }
 
@@ -61,6 +61,9 @@ main {
   justify-content: center;
   display: inline-flex;
   flex-wrap: wrap;
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 0;
 }
 
 .none {
@@ -96,4 +99,8 @@ button:focus {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+li {
+  list-style: none;
 }

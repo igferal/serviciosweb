@@ -4,8 +4,8 @@
 
   <div [innerHTML]="blogpost.body"></div>
   <ul>
-    <li *ngFor="let tag of blogpost.tags">
-      {{tag.name}}
+    <li class="tag" *ngFor="let tag of blogpost.tags">
+      <a class="tag" routerLink="/blogpost/{{tag.name}}">{{tag.name}}</a>
     </li>
   </ul>
 

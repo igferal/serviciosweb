@@ -9,11 +9,20 @@
 
     </div>
   </nav>
-  <nav class="navLinks">
-    <a class="link" routerLink="">Blogposts</a>
-    <a class="link" *ngIf="userService.token !=null" routerLink="myblogposts">Mis Articulos</a>
-    <a class="link"  *ngIf="userService.token !=null" routerLink="createBlogPost">Crear Noticia</a>
-  </nav>
+  <ul class="navLinks">
+    <li>
+      <a class="link" routerLink="blogpost">Blogposts</a>
+    </li>
+    <li>
+      <a class="link" *ngIf="userService.token !=null" routerLink="myblogposts">Mis Articulos</a>
+    </li>
+    <li>
+      <a class="link" *ngIf="userService.token !=null" routerLink="createBlogPost">Crear Noticia</a>
+    </li>
+    <li *ngFor="let tag of tags">
+      <a class="link" routerLink="blogpost/{{tag.name}}">{{tag.name}}</a>
+    </li>
+  </ul>
 </header>
 <main>
   <router-outlet></router-outlet>

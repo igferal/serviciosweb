@@ -19,20 +19,12 @@ export class UserService implements CanActivate {
     let headers = new Headers({ Email: btoa(user), Password: btoa(password) });
     let options = new RequestOptions({ headers: headers });
 
-    let observable = this.http.post(
+    return this.http.post(
       this.endpoint + "/api/auth/login",
       {},
       options
     );
 
-    observable.subscribe(res => {
-      let response = res.json();
-      this.user = response.email;
-      this.token = response.token;
-      console.log(this.token);
-    });
-
-    return observable;
   }
 
   public closeSession() {
@@ -41,14 +33,11 @@ export class UserService implements CanActivate {
   }
 
   public signUp(user: string, password, email: string) {
-    this.http
+    return this.http
       .post(this.endpoint + "/user", {
         name: user,
         password: password,
         email: email
-      })
-      .subscribe(res => {
-        console.log(res);
       });
   }
 

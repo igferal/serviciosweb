@@ -1,5 +1,5 @@
 import { UserService } from "./../../services/user.service";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { BlogPostService } from "./../../services/blogpost.service";
 import { TagsService } from "./../../services/tags.service";
 import { Component, OnInit } from "@angular/core";
@@ -24,25 +24,39 @@ export class CreateBlogPostComponent implements OnInit {
     public blogPostService: BlogPostService,
     public tagsService: TagsService,
     public route: ActivatedRoute,
-    public userService: UserService
+    public userService: UserService,
+    public router: Router
   ) {}
 
-  createArticle(a: BlogPost): void {
-    if (this.modifying) {
-
-      this.blogPostService
-        .modifyBlogPost(this.blogpost, this.userService.token)
-        .subscribe(res => {
-          console.log(res);
-        });
-
-    } else {
-      this.blogPostService
-        .createBlogpost(this.blogpost, this.userService.token)
-        .subscribe(res => {
-          console.log(res);
-        });
+  public sendForm(): void {
+    if (this.blogpost.title === "" || this.blogpost.body === "") {
+      alert("El articulo debe tener titulo y contenido");
+      return;
     }
+
+    if (this.modifying) {
+      this.modify();
+    } else {
+      this.createBlogPost();
+    }
+  }
+
+  private modify() {
+    this.blogPostService
+      .modifyBlogPost(this.blogpost, this.userService.token)
+      .subscribe(
+        res => this.router.navigateByUrl("myblogposts"),
+        err => alert("error en la petición")
+      );
+  }
+
+  private createBlogPost() {
+    this.blogPostService
+      .createBlogpost(this.blogpost, this.userService.token)
+      .subscribe(
+        res => this.router.navigateByUrl("myblogposts"),
+        err => alert("error en la petición")
+      );
   }
 
   public addTag(tag: string) {
@@ -64,9 +78,7 @@ export class CreateBlogPostComponent implements OnInit {
           this.buttonText = "Modificar Blogpost";
         });
       } else {
-        this.tagsService
-          .getTags(this.userService.token)
-          .subscribe(tags => (this.tags = tags.json()));
+        this.tagsService.getTags().subscribe(tags => (this.tags = tags.json()));
       }
     });
   }

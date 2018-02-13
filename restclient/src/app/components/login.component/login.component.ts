@@ -16,9 +16,19 @@ export class LoginComponent {
 
   public logUser(): void {
     if (this.user != "" && this.password != "") {
-      this.userService.login(this.user, this.password).subscribe(res => {
-        this.router.navigateByUrl("/myblogposts");
-      });
+      this.userService.login(this.user, this.password).subscribe(
+        res => {
+          if (res.json().token != null) {
+            let response = res.json();
+            this.userService.user = response.email;
+            this.userService.token = response.token;
+            this.router.navigateByUrl("/myblogposts");
+          }
+        },
+        err => {
+          alert("Usuario y contraseña no existentes");
+        }
+      );
     }
   }
 }

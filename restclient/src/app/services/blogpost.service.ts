@@ -9,7 +9,6 @@ export class BlogPostService {
   private endpoint: string = "http://localhost:8443/";
 
   public createBlogpost(blogPost: BlogPost, token: string) {
-    console.log(blogPost);
     let options = this.getHeadersWithToken(token);
     return this.http.post(this.endpoint + "api/blogpost", blogPost, options);
   }
@@ -31,10 +30,14 @@ export class BlogPostService {
     return this.http.put(`${this.endpoint}api/blogpost`, blogpost, options);
   }
 
-  public deleteBlogPost(blogpost: BlogPost, token: string) {
+  public getBlogPostsByTag(id: string) {
+    return this.http.get(this.endpoint + `blogpost?tags=${id}`);
+  }
+
+  public deleteBlogPost(id: string, token: string) {
     let options = this.getHeadersWithToken(token);
 
-    //this.http.delete(`${this.endpoint}api/blogpost`,blogpost,options)
+    return this.http.delete(`${this.endpoint}api/blogpost/${id}`, options);
   }
 
   private getHeadersWithToken(token: string): RequestOptions {

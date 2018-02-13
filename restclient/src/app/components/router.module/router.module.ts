@@ -10,7 +10,9 @@ import { SignUpComponent } from "../sign.up.component/sign.up.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "blogpost", pathMatch: "full" },
+  { path: "blogpost/:id", component: BlogPostComponent },
   { path: "blogpost", component: BlogPostComponent },
+  { path: "blogpost/:id", component: BlogPostComponent },
   {
     path: "createBlogPost",
     component: CreateBlogPostComponent,

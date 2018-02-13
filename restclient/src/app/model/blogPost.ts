@@ -4,6 +4,7 @@ export class BlogPost {
     public body: string,
     public date: Date,
     public tags: String[],
-    public creator: any = { id :2, "name" : "Nacho", email : "nacho@gmail.com"}
+    public creator: any = { id: 2, name: "Nacho", email: "nacho@gmail.com" },
+    public id = null 
   ) {}
 }
