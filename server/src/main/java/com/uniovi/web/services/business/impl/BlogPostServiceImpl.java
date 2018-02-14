@@ -38,19 +38,17 @@ public class BlogPostServiceImpl implements BlogPostService {
 	private TagRepository tagRepository;
 
 	@Override
-	public void save(BlogPost blog,  String email) throws UserNotFoundException { 
-		if (null == blog || !assertBlogPostParameters(blog) || StringUtils.isBlank(email)) {
+	public void save(BlogPost blog) throws UserNotFoundException { 
+		if (null == blog || !assertBlogPostParameters(blog)) {
 			throw new IllegalArgumentException("BlogPost parameters required");
+		}
+		if (!assertCreatorExists(blog)) {
+			throw new UserNotFoundException("Creator not found");
 		}
 		if (null != blog.getId()) {
 			throw new IllegalArgumentException(
 					"Update for an existing blogpost");
 		}
-		User user = userRepository.findByEmail(email);
-		if (null == user) {
-			throw new UserNotFoundException("Email does not belong to an existing user");
-		}
-		blog.setCreator(user);
 		blog.setTags(getBlogTags(blog));
 		blog.setCreationDate(new Date());
 		blogPostRepository.save(blog);

@@ -20,7 +20,7 @@ public interface BlogPostService {
 	 * @param blog
 	 * @throws UserNotFoundException 
 	 */
-	void save(BlogPost blog, String creatorEmail) throws UserNotFoundException;
+	void save(BlogPost blog) throws UserNotFoundException;
 
 	/**
 	 * Finds posts by criteria
