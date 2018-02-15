@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -46,21 +45,24 @@ public class BlogPostRepositoryImpl extends BaseRepository<BlogPost>
 				posts = filterByTags(criteria.getTags());
 			}
 			if (null != posts) {
-				return new HashSet<BlogPost> (CollectionUtils.intersection(posts, blogPostRepository.findAll(isBlogPostCriteria(criteria))));
+				return new HashSet<BlogPost>(
+						CollectionUtils.intersection(posts, blogPostRepository
+								.findAll(isBlogPostCriteria(criteria))));
 			} else {
-				return new HashSet<BlogPost>(blogPostRepository.findAll(isBlogPostCriteria(criteria)));
+				return new HashSet<BlogPost>(blogPostRepository
+						.findAll(isBlogPostCriteria(criteria)));
 			}
 		}
 		return new HashSet<BlogPost>(blogPostRepository.findAll());
 	}
-	
+
 	private Set<BlogPost> filterByTags(Set<Tag> tags) {
 		List<Long> ids = new ArrayList<Long>();
 		tags.forEach(x -> ids.add(x.getId()));
-		TypedQuery<BlogPost> q =
-			      entitymanager.createQuery("SELECT b FROM BlogPost b " //
-			      		+ "INNER JOIN b.tags as t " //
-			      		+ "WHERE t.id in (:tags)", BlogPost.class);
+		TypedQuery<BlogPost> q = entitymanager
+				.createQuery("SELECT b FROM BlogPost b " //
+						+ "INNER JOIN b.tags as t " //
+						+ "WHERE t.id in (:tags)", BlogPost.class);
 		q.setParameter("tags", ids);
 		return new HashSet<BlogPost>(q.getResultList());
 	}
@@ -84,7 +86,7 @@ public class BlogPostRepositoryImpl extends BaseRepository<BlogPost>
 						"creationDate");
 
 				result = getCreatorPredicate(criteria, root, result, builder);
-				//result = getTagsPredicate(criteria, query, result, builder);
+				// result = getTagsPredicate(criteria, query, result, builder);
 
 				return result;
 			}

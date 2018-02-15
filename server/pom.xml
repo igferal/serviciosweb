@@ -7,6 +7,7 @@
 	<artifactId>server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
+	
 
 	<name>server</name>
 	<description>Web services server</description>
@@ -26,6 +27,12 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+	 		<groupId>com.uniovi.web.services.model</groupId>
+	 		<artifactId>server-model</artifactId>
+	 		<version>0.0.1-SNAPSHOT</version>
+	 	</dependency>
 
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -87,7 +94,6 @@
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -98,6 +104,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>

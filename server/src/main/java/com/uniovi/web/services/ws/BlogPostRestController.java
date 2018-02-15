@@ -30,53 +30,67 @@ public class BlogPostRestController {
 	@Autowired
 	private BlogPostService blogPostService;
 
-	@RequestMapping(path = PATH, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<?> get(@RequestParam(value = "id", required = false) Long id,
+	@RequestMapping(path = PATH, method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<?> get(
+			@RequestParam(value = "id", required = false) Long id,
 			@RequestParam(value = "title", required = false) String title,
-			@RequestParam(value = "creatorEmail", required = false) String creatorEmail,
+			@RequestParam(value = "creatorEmail",
+					required = false) String creatorEmail,
 			@RequestParam(value = "tags", required = false) String[] tags) {
 
 		try {
-			return new ResponseEntity<>(blogPostService.find(new BlogPost(id, new User(creatorEmail), title), tags),
+			return new ResponseEntity<>(blogPostService.find(
+					new BlogPost(id, new User(creatorEmail), title), tags),
 					HttpStatus.OK);
 		} catch (IllegalArgumentException iax) {
-			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, iax.getLocalizedMessage());
+			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
+					iax.getLocalizedMessage());
 			return new ResponseEntity<Object>(apiError, apiError.getStatus());
 		}
 	}
 
-	@RequestMapping(path = API_PATH, method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<Object> post(@RequestBody BlogPost blogPost) {
+	@RequestMapping(path = API_PATH, method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Object> post(
+			@RequestBody BlogPost blogPost) {
 
 		HttpHeaders headers = new HttpHeaders();
 		try {
 			blogPostService.save(blogPost);
 			headers.add("location", "/blogpost?id=" + blogPost.getId());
 		} catch (IllegalArgumentException iax) {
-			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, iax.getLocalizedMessage());
+			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
+					iax.getLocalizedMessage());
 			return new ResponseEntity<Object>(apiError, apiError.getStatus());
 		} catch (UserNotFoundException e) {
-			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, e.getLocalizedMessage());
+			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
+					e.getLocalizedMessage());
 			return new ResponseEntity<Object>(apiError, apiError.getStatus());
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(blogPost);
+		return ResponseEntity.status(HttpStatus.CREATED).headers(headers)
+				.body(blogPost);
 	}
 
-	@RequestMapping(path = API_PATH
-			+ "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = API_PATH + "/{id}", method = RequestMethod.DELETE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 
 		BlogPost deleted = null;
 		try {
 			deleted = blogPostService.delete(id);
 		} catch (IllegalArgumentException | BlogPostNotFoundException iax) {
-			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, iax.getLocalizedMessage());
+			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
+					iax.getLocalizedMessage());
 			return new ResponseEntity<Object>(apiError, apiError.getStatus());
 		}
 		return new ResponseEntity<Object>(deleted, HttpStatus.OK);
 	}
 
-	@RequestMapping(path = API_PATH, method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = API_PATH, method = RequestMethod.PUT,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> put(@RequestBody BlogPost blogPost) {
 
 		HttpHeaders headers = new HttpHeaders();
@@ -84,10 +98,12 @@ public class BlogPostRestController {
 			blogPostService.update(blogPost);
 			headers.add("location", "/blogpost?id=" + blogPost.getId());
 		} catch (IllegalArgumentException iax) {
-			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, iax.getLocalizedMessage());
+			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST,
+					iax.getLocalizedMessage());
 			return new ResponseEntity<Object>(apiError, apiError.getStatus());
 		}
-		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(blogPost);
+		return ResponseEntity.status(HttpStatus.OK).headers(headers)
+				.body(blogPost);
 	}
 
 }

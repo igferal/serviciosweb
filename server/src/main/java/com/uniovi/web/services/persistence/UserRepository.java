@@ -11,8 +11,8 @@ import com.uniovi.web.services.model.User;
  * @author Victor
  *
  */
-public interface UserRepository
-		extends JpaRepository<User, Long>, JpaSpecificationExecutor<User>, UserRepositoryCustom {
+public interface UserRepository extends JpaRepository<User, Long>,
+		JpaSpecificationExecutor<User>, UserRepositoryCustom {
 
 	User findByEmailAndPassword(String email, String password);
 

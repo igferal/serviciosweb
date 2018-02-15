@@ -39,6 +39,7 @@ public class UserRestController {
 					iax.getLocalizedMessage());
 			return new ResponseEntity<Object>(apiError, apiError.getStatus());
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(user);
+		return ResponseEntity.status(HttpStatus.CREATED).headers(headers)
+				.body(user);
 	}
 }
