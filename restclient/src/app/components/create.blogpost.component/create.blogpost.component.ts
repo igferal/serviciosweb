@@ -13,7 +13,9 @@ import { BlogPost } from "./../../model/blogPost";
   providers: [BlogPostService, TagsService]
 })
 export class CreateBlogPostComponent implements OnInit {
-  public blogpost: BlogPost = new BlogPost("", "Escribe aqui", new Date(), []);
+  public blogpost: BlogPost = new BlogPost("", "Escribe aqui", new Date(), [], {
+    email: localStorage.getItem("email")
+  });
 
   public tags: Array<String>;
 

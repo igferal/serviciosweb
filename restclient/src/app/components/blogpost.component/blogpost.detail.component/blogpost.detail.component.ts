@@ -15,7 +15,7 @@ import "rxjs/add/operator/switchMap";
 export class BlogPostDetailComponent implements OnInit {
   public id: string;
 
-  public blogpost: BlogPost = new BlogPost("","",new Date(),[]);
+  public blogpost: BlogPost = new BlogPost("", "", new Date(), [], {});
 
   constructor(
     public route: ActivatedRoute,
