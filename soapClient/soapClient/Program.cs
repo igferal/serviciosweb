@@ -2,7 +2,7 @@
 using System.IO;
 using System.Collections;
 using soapClient.parser;
-using soapClient.Model;
+using soapClient.model;
 using System.Collections.Generic;
 
 namespace soapClient
@@ -11,18 +11,8 @@ namespace soapClient
     {
         static void Main(string[] args)
         {
-            string[] files = Directory.GetFiles("Input");
-            List<BlogPost> blogposts = new List<BlogPost>();
-
-
-            foreach(string file in files){
-
-                var parser = new BlogPostParser();
-                parser.fileRoute = file;
-                blogposts.Add(parser.parse());
-            }
-
-            blogposts.ForEach((blogpost)=>Console.WriteLine( blogpost.title + "\n\t" + blogpost.content));
+            App app = new App();
+            app.runApp();
         }
     }
 

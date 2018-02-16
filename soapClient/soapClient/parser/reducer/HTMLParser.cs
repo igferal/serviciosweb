@@ -10,8 +10,14 @@ namespace soapClient.parser.reducer
         public string reduceContent(string fileName)
         {
             string content = System.IO.File.ReadAllText(fileName);
-            content = content.Split("<body>")[1];
-            content = content.Split("</body>")[0];
+            if (content.Contains("<body>"))
+            {
+                content = content.Split("<body>")[1];
+            }
+            if (content.Contains("</body>"))
+            {
+                content = content.Split("</body>")[0];
+            }
             return content;
         }
     }

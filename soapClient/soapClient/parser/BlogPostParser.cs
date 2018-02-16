@@ -1,5 +1,5 @@
 ﻿using System;
-using soapClient.Model;
+using soapClient.model;
 using soapClient.parser.reducer;
 
 namespace soapClient.parser
@@ -29,15 +29,15 @@ namespace soapClient.parser
 
                 case "txt":
                     this.reducer = new TextReducer();
-                    blogPost.content = this.reducer.reduceContent(this.fileRoute);
+                    blogPost.body = this.reducer.reduceContent(this.fileRoute);
                     break;
                 case "pdf":
                     this.reducer = new PDFReducer();
-                    blogPost.content = this.reducer.reduceContent(this.fileRoute);
+                    blogPost.body = this.reducer.reduceContent(this.fileRoute);
                     break;
                 case "html":
                     this.reducer = new HTMLParser();
-                    blogPost.content = this.reducer.reduceContent(this.fileRoute);
+                    blogPost.body = this.reducer.reduceContent(this.fileRoute);
                     break;
 
             }

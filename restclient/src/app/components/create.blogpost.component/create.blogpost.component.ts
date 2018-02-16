@@ -23,6 +23,14 @@ export class CreateBlogPostComponent implements OnInit {
 
   public buttonText = "Crear BlogPost";
 
+  public options = {
+    imageUpload: false,
+    fileUpload: false,
+    videoUpload: false,
+    imagePaste: false
+
+  };
+
   constructor(
     public blogPostService: BlogPostService,
     public tagsService: TagsService,
