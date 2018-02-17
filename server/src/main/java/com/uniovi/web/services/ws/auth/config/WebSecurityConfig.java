@@ -1,7 +1,9 @@
 package com.uniovi.web.services.ws.auth.config;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.ws.Endpoint;
 
@@ -9,6 +11,7 @@ import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.transport.servlet.CXFServlet;
+import org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -53,6 +56,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private CORSFilter filtro;
+
+	@Autowired
+	private SoapPasswordCallback soapPasswordCallback;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -128,10 +134,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public Endpoint userServiceEndpoint() {
-		Endpoint ep = new EndpointImpl(springBus(), new BlogPostServiceImpl());
+		EndpointImpl ep = new EndpointImpl(springBus(),
+				new BlogPostServiceImpl());
 		ep.publish("/BlogPostService");
-
+		ep.getInInterceptors().add(soapPasswordCallback);
 		return ep;
+	}
 
+	@Bean
+	public WSS4JInInterceptor interceptor() {
+		Map<String, Object> inProps = new HashMap<String, Object>();
+
+		inProps.put("action", "UsernameToken");
+		inProps.put("passwordType", "PasswordText");
+		inProps.put("passwordCallbackClass",
+				"com.uniovi.web.services.ws.auth.config.SoapPasswordCallback");
+
+		return new WSS4JInInterceptor(inProps);
 	}
 }
