@@ -13,7 +13,6 @@
   <modules>
   	<module>../server</module>
   	<module>../server-model</module>
-  	<module>../server-api-soap</module>
   </modules>
 
   <properties>

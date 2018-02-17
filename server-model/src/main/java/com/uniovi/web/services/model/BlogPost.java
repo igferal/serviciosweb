@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "BLOGPOST")
@@ -47,6 +49,7 @@ public class BlogPost extends BaseEntity {
 		this.title = title;
 	}
 
+	@XmlTransient
 	public User getCreator() {
 		return creator;
 	}
@@ -55,6 +58,7 @@ public class BlogPost extends BaseEntity {
 		this.creator = creator;
 	}
 
+	@XmlElement(required = true)
 	public String getTitle() {
 		return title;
 	}
@@ -63,6 +67,7 @@ public class BlogPost extends BaseEntity {
 		this.title = title;
 	}
 
+	@XmlElement(required = true)
 	public String getBody() {
 		return body;
 	}
@@ -71,6 +76,7 @@ public class BlogPost extends BaseEntity {
 		this.body = body;
 	}
 
+	@XmlTransient
 	public Date getCreationDate() {
 		return creationDate;
 	}

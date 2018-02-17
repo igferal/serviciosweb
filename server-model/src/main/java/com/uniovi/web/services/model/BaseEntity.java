@@ -4,6 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Clase con la información base de todas las entidades
@@ -18,6 +19,7 @@ public class BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 
+	@XmlTransient
 	public Long getId() {
 		return id;
 	}
