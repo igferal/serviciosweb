@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using ClientSoapCs.BlogPostService;
 using soapClient.client;
-using soapClient.model;
 using soapClient.parser;
 
 namespace soapClient
@@ -12,7 +12,7 @@ namespace soapClient
     {
         public List<string> files { set; get; }
 
-        public List<BlogPost> blogposts { set; get; }
+        public List<blogPost> blogposts { set; get; }
 
         public Client client;
 
@@ -21,7 +21,7 @@ namespace soapClient
         public App()
         {
             this.files = new List<string>(Directory.GetFiles("Input"));
-            this.blogposts = new List<BlogPost>();
+            this.blogposts = new List<blogPost>();
             this.client = new Client();
         }
 
@@ -35,7 +35,7 @@ namespace soapClient
 
             });
 
-            client.send(this.blogposts);
+            client.send(this.blogposts,"nacho@gmail.com");
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using soapClient.model;
+using ClientSoapCs.BlogPostService;
 using soapClient.parser.reducer;
 
 namespace soapClient.parser
@@ -19,13 +19,13 @@ namespace soapClient.parser
         }
 
 
-        public BlogPost parse(){
+        public blogPost parse(){
 
 
-            BlogPost blogPost = new BlogPost();
+            blogPost blogPost = new blogPost();
             blogPost.title = fileRoute.Substring(0, fileRoute.Length - 4).Replace("Input/","");
             //Obtener extension del archivo
-            switch(this.fileRoute.Split(".")[this.fileRoute.Split(".").Length-1]){
+            switch(this.fileRoute.Split('.')[this.fileRoute.Split('.').Length-1]){
 
                 case "txt":
                     this.reducer = new TextReducer();
