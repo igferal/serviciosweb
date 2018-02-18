@@ -42,6 +42,16 @@ public class BlogPost extends BaseEntity {
 		super();
 	}
 
+	public BlogPost(User creator, String title, String body, Date creationDate,
+			Set<Tag> tags) {
+		super();
+		this.creator = creator;
+		this.title = title;
+		this.body = body;
+		this.creationDate = creationDate;
+		this.tags = tags;
+	}
+
 	public BlogPost(Long id, User creator, String title) {
 		super();
 		this.id = id;

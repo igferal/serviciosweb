@@ -1,8 +1,6 @@
 package com.uniovi.web.services.client.parser.impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
@@ -16,7 +14,7 @@ import com.uniovi.web.services.client.parser.AbstractResponseParser;
 
 public class MarvelResponseParser extends AbstractResponseParser {
 
-	public List<IProxyModel> parseResponse(ClientResponse response)
+	public IProxyModel parseResponse(ClientResponse response)
 			throws JsonParseException, JsonMappingException, IOException {
 
 		String resp = response.getEntity(String.class);
@@ -24,17 +22,19 @@ public class MarvelResponseParser extends AbstractResponseParser {
 		JsonNode dataNode = this.getDataNode(mapper, resp.getBytes());
 
 		int idx = 0;
-		List<IProxyModel> result = new ArrayList<IProxyModel>();
-
+		IProxyModel result = null;
 		if (null != dataNode) {
 			dataNode = dataNode.get("results");
 			JsonNode oneResult = null;
 			if (null != dataNode) {
+				StringBuilder sb = new StringBuilder();
 				while ((oneResult = dataNode.get(idx)) != null) {
-					result.add(
-							new MarvelStory(oneResult.get("title").toString()));
+					sb.append(oneResult.get("title").toString());
+					sb.append(System.getProperty("line.separator"));
 					idx++;
 				}
+				result = new MarvelStory("Marvel list of stories",
+						sb.toString());
 			}
 		}
 		return result;

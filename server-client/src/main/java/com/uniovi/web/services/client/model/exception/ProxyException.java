@@ -1,25 +1,25 @@
 package com.uniovi.web.services.client.model.exception;
 
-public class ParserException extends Exception {
+public class ProxyException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 9075587148165703148L;
 
-	public ParserException() {
+	public ProxyException() {
 		super();
 	}
 
-	public ParserException(String message, Throwable cause) {
+	public ProxyException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
-	public ParserException(String message) {
+	public ProxyException(String message) {
 		super(message);
 	}
 
-	public ParserException(Throwable cause) {
+	public ProxyException(Throwable cause) {
 		super(cause);
 	}
 

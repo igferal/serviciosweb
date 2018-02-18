@@ -8,6 +8,7 @@ INSERT INTO TAG (NAME) VALUES ('Development');
 INSERT INTO TAG (NAME) VALUES ('Self Driving Cars');
 INSERT INTO TAG (NAME) VALUES ('Javascript');
 INSERT INTO TAG (NAME) VALUES ('Elon Munsk');
+INSERT INTO TAG (NAME) VALUES ('Marvel');
 
 
 

@@ -1,8 +1,10 @@
 package com.uniovi.web.services.business.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.web.services.business.BlogPostService;
+import com.uniovi.web.services.business.util.Constants;
+import com.uniovi.web.services.client.MarvelEndPoint;
+import com.uniovi.web.services.client.model.IProxyModel;
+import com.uniovi.web.services.client.model.exception.ProxyException;
 import com.uniovi.web.services.model.BlogPost;
 import com.uniovi.web.services.model.Tag;
 import com.uniovi.web.services.model.User;
@@ -38,7 +44,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 	private TagRepository tagRepository;
 
 	@Override
-	public void save(BlogPost blog) throws UserNotFoundException { 
+	public void save(BlogPost blog) throws UserNotFoundException {
 		if (null == blog || !assertBlogPostParameters(blog)) {
 			throw new IllegalArgumentException("BlogPost parameters required");
 		}
@@ -60,7 +66,31 @@ public class BlogPostServiceImpl implements BlogPostService {
 			throw new IllegalArgumentException("Criteria parameter required");
 		}
 		criteria.setTags(getTagList(tags));
-		return blogPostRepository.findByCriteria(criteria);
+		Set<BlogPost> result = blogPostRepository.findByCriteria(criteria);
+		if (null != criteria.getTags()) {
+			try {
+				result.addAll(findExternalBlogPosts(criteria.getTags()));
+			} catch (ProxyException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return result;
+	}
+
+	private List<BlogPost> findExternalBlogPosts(Set<Tag> tags)
+			throws ProxyException {
+		List<BlogPost> result = new ArrayList<BlogPost>();
+		for (Tag tag : tags) {
+			if (Constants.MARVEL_TAG.equals(tag.getName())) {
+				IProxyModel ext = MarvelEndPoint.getAllStories();
+				Set<Tag> tagList = new HashSet<Tag>();
+				tagList.add(tag);
+				result.add(new BlogPost(new User(Constants.OWN_POST),
+						ext.getTitle(), ext.getDescription(), new Date(),
+						tagList));
+			}
+		}
+		return result;
 	}
 
 	@Override
