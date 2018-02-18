@@ -28,7 +28,6 @@ export class CreateBlogPostComponent implements OnInit {
     fileUpload: false,
     videoUpload: false,
     imagePaste: false
-
   };
 
   constructor(
@@ -91,6 +90,10 @@ export class CreateBlogPostComponent implements OnInit {
           this.blogpost = res.json()[0];
           this.modifying = true;
           this.buttonText = "Modificar Blogpost";
+          this.tagsService
+            .getTags()
+            .subscribe(tags => (this.tags = tags.json()));
+          this.blogpost.tags = [];
         });
       } else {
         this.tagsService.getTags().subscribe(tags => (this.tags = tags.json()));
