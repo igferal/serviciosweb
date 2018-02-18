@@ -30,9 +30,16 @@ export class BlogPostComponent implements OnInit {
   public ngOnInit() {
     let suscription = this.route.params.subscribe(id => {
       if (null != id.id) {
+
+        /**
+         *  Marvel
+         */
+        if(id.id === 'Marvel'){
+          this.router.navigateByUrl("blogPostDetail/marvel")
+        }
+
         this.giphyService.getGifs(id.id).subscribe(res => {
           this.gifs = res.json().data;
-          console.log(this.gifs[0]);
           this.blogPostService.getBlogPostsByTag(id.id).subscribe(res => {
             this.blogposts = res.json();
           });

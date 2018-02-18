@@ -8,7 +8,7 @@
     <br/>
     <ul class="inline">
         <li class="inline" *ngFor="let tag of tags">
-            <label for="{{tag.name}}">{{tag.name}}
+            <label for="{{tag.name}}">{{tag.name}}               
                 <input type="checkbox" name="{{tag.name}}" id="{{tag.name}}" value="{{tag.name}}" (click)="addTag(tag)">
             </label>
         </li>

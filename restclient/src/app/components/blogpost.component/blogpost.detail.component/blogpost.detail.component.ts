@@ -29,9 +29,19 @@ export class BlogPostDetailComponent implements OnInit {
         console.log("Ruta inicializada");
       });
 
-    this.blogPostService.getBlogPostById(this.id).subscribe(res => {
-      console.log(res.json());
-      this.blogpost = res.json()[0];
-    });
+    if (this.id === "marvel") {
+      this.blogPostService.getBlogPostsByTag("Marvel").subscribe(res => {
+        res.json().forEach(article => {
+          if (null === article.id) {
+            this.blogpost = article;
+          }
+        });
+      });
+       
+    } else {
+      this.blogPostService.getBlogPostById(this.id).subscribe(res => {
+        this.blogpost = res.json()[0];
+      });
+    }
   }
 }
