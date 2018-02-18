@@ -1,3 +1,4 @@
+
 package com.uniovi.web.services.ws.auth.config;
 
 import java.io.IOException;
@@ -12,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
-
-import com.uniovi.web.services.ws.auth.util.Constants;
 
 @Component
 public class CORSFilter implements Filter {
@@ -34,16 +33,7 @@ public class CORSFilter implements Filter {
 				"POST, GET, OPTIONS, DELETE, PUT");
 		response.setHeader("Access-Control-Max-Age", "3600");
 
-		String path = request.getRequestURI()
-				.substring(request.getContextPath().length());
-
-		if (Constants.FORM_BASED_LOGIN_ENTRY_POINT.equals(path)) {
-			response.setHeader("Access-Control-Allow-Headers",
-					"Origin, X-Requested-With, Content-Type, Accept, authorization, email, password");
-		} else {
-			response.setHeader("Access-Control-Allow-Headers",
-					"Origin, X-Requested-With, Content-Type, Accept, authorization,jwt-auth");
-		}
+		response.setHeader("Access-Control-Allow-Headers", "*");
 
 		if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
 			response.setStatus(HttpServletResponse.SC_OK);
