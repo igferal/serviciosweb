@@ -35,7 +35,7 @@ namespace soapClient
 
             });
 
-            client.send(this.blogposts,"nacho@gmail.com");
+            client.send(this.blogposts,"nacho@gmail.com","1234");
         }
     }
 }

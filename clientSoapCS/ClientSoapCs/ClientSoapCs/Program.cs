@@ -12,6 +12,7 @@ namespace soapClient
         {
             App app = new App();
             app.runApp();
+            
         }
     }
 }
