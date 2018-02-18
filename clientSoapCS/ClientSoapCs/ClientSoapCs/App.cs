@@ -28,9 +28,9 @@ namespace soapClient
         {
             configureUserRouteAndPass(args);
             this.checkConfig();
-            this.files = new List<string>(Directory.GetFiles(this.route));
             this.blogposts = new List<blogPost>();
             this.client = new Client();
+            this.configureFiles();
 
         }
 
@@ -49,6 +49,20 @@ namespace soapClient
             });
 
             client.send(this.blogposts, this.user, this.password);
+        }
+
+        private void configureFiles()
+        {
+            try
+            {
+                this.files = new List<string>(Directory.GetFiles(this.route));
+
+            }catch(IOException e)
+            {
+                Console.WriteLine("Problemas con la ruta,pruebe con otra diferente");
+                Environment.Exit(0);
+            }
+
         }
 
         private void checkConfig()
