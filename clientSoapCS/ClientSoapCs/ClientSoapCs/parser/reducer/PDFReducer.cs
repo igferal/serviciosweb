@@ -15,20 +15,19 @@ namespace soapClient.parser.reducer
         {
 
             StringBuilder result = new StringBuilder();
-            // Create a reader for the given PDF file
             using (PdfReader reader = new PdfReader(fileName))
             {
-                // Read pages
                 for (int page = 1; page <= reader.NumberOfPages; page++)
                 {
 
                     LocationTextExtractionStrategy located = new LocationTextExtractionStrategy();
 
                     string pageText =  PdfTextExtractor.GetTextFromPage(reader, page, located);
-                    Console.Write(pageText);
                     result.Append(pageText);
                 }
             }
+            Console.WriteLine("Procesando fichero PDF {0}", fileName);
+
             return result.ToString();
         }
     }

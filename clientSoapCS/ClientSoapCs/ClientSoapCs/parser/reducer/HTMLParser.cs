@@ -18,6 +18,7 @@ namespace soapClient.parser.reducer
             {
                 content = content.Split(new[] { "<body>" }, StringSplitOptions.None)[0];
             }
+            Console.WriteLine("Procesando fichero HTML {0}", fileName);
             return content;
         }
     }

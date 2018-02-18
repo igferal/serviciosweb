@@ -10,7 +10,7 @@ namespace soapClient
     {
         static void Main(string[] args)
         {
-            App app = new App();
+            App app = new App(args);
             app.runApp();
             
         }

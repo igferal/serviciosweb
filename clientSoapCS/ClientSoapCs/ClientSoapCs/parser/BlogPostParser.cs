@@ -23,19 +23,23 @@ namespace soapClient.parser
 
 
             blogPost blogPost = new blogPost();
-            blogPost.title = fileRoute.Substring(0, fileRoute.Length - 4).Replace("Input\\","");
+            //quitamos la ruta
+            string title = fileRoute.Split('\\')[fileRoute.Split('\\').Length - 1];
             //Obtener extension del archivo
             switch(this.fileRoute.Split('.')[this.fileRoute.Split('.').Length-1]){
 
                 case "txt":
                     this.reducer = new TextReducer();
+                    blogPost.title = title.Replace(".txt", "");
                     blogPost.body = this.reducer.reduceContent(this.fileRoute);
                     break;
                 case "pdf":
+                    blogPost.title = title.Replace(".pdf", "");
                     this.reducer = new PDFReducer();
                     blogPost.body = this.reducer.reduceContent(this.fileRoute);
                     break;
                 case "html":
+                    blogPost.title = title.Replace(".html", "");
                     this.reducer = new HTMLParser();
                     blogPost.body = this.reducer.reduceContent(this.fileRoute);
                     break;
