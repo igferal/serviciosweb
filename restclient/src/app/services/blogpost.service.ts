@@ -6,7 +6,7 @@ import { Injectable } from "@angular/core";
 export class BlogPostService {
   constructor(public http: Http) {}
 
-  private endpoint: string = "https://localhost:8443/";
+  private endpoint: string = "https://156.35.98.44:9090/";
 
   public createBlogpost(blogPost: BlogPost, token: string) {
     let options = this.getHeadersWithToken(token);

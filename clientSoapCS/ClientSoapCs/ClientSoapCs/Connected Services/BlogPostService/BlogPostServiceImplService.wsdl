@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://impl.soap.ws.services.web.uniovi.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://soap.ws.services.web.uniovi.com/" name="BlogPostServiceImplService" targetNamespace="http://impl.soap.ws.services.web.uniovi.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsdl:import namespace="http://soap.ws.services.web.uniovi.com/" location="https://localhost:8443/soap-ws/BlogPostService?wsdl=BlogPostService.wsdl" />
+  <wsdl:import namespace="http://soap.ws.services.web.uniovi.com/" location="https://localhost:9090/soap-ws/BlogPostService?wsdl=BlogPostService.wsdl" />
   <wsdl:types />
   <wsdl:binding name="BlogPostServiceImplServiceSoapBinding" type="ns1:BlogPostService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -22,7 +22,7 @@
   </wsdl:binding>
   <wsdl:service name="BlogPostServiceImplService">
     <wsdl:port name="BlogPostServiceImplPort" binding="tns:BlogPostServiceImplServiceSoapBinding">
-      <soap:address location="https://localhost:8443/soap-ws/BlogPostService" />
+      <soap:address location="https://localhost:9090/soap-ws/BlogPostService" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

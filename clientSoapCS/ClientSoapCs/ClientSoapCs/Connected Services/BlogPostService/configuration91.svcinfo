@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="ZnJacMO+4TI2086SqGtYYVOQBFE=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="R472R8LHZqRQ+HanOBRAuh1zCuw=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BlogPostServiceImplServiceSoapBinding">
       <properties>
@@ -221,10 +221,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BlogPostServiceImplPort" contract="BlogPostService.BlogPostService" bindingType="basicHttpBinding" address="https://localhost:8443/soap-ws/BlogPostService" bindingConfiguration="BlogPostServiceImplServiceSoapBinding">
+    <endpoint name="BlogPostServiceImplPort" contract="BlogPostService.BlogPostService" bindingType="basicHttpBinding" address="https://localhost:9090/soap-ws/BlogPostService" bindingConfiguration="BlogPostServiceImplServiceSoapBinding">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>https://localhost:8443/soap-ws/BlogPostService</serializedValue>
+          <serializedValue>https://localhost:9090/soap-ws/BlogPostService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
