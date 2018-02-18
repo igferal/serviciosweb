@@ -12,12 +12,13 @@ namespace soapClient.parser.reducer
             string content = System.IO.File.ReadAllText(fileName);
             if (content.Contains("<body>"))
             {
-                content = content.Split("<body>")[1];
+                content = content.Split(new[] { "<body>" },StringSplitOptions.None)[1];
             }
             if (content.Contains("</body>"))
             {
-                content = content.Split("</body>")[0];
+                content = content.Split(new[] { "<body>" }, StringSplitOptions.None)[0];
             }
+            Console.WriteLine("Procesando fichero HTML {0}", fileName);
             return content;
         }
     }

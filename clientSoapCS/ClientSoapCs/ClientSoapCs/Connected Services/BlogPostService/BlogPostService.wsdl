@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://soap.ws.services.web.uniovi.com/" name="BlogPostService" targetNamespace="http://soap.ws.services.web.uniovi.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema xmlns:tns="http://soap.ws.services.web.uniovi.com/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://soap.ws.services.web.uniovi.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="saveList" type="tns:saveList" />
+      <xs:element name="saveListResponse" type="tns:saveListResponse" />
+      <xs:complexType name="saveList">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="arg0" type="tns:blogPost" />
+          <xs:element minOccurs="0" name="arg1" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="blogPost">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseEntity">
+            <xs:sequence>
+              <xs:element name="body" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="tags" nillable="true" type="tns:tag" />
+              <xs:element name="title" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="baseEntity">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="tag">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:baseEntity">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="name" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="saveListResponse">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:element name="CreatorNotFound" type="tns:CreatorNotFound" />
+      <xs:complexType name="CreatorNotFound">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="InvalidBlogPost" type="tns:InvalidBlogPost" />
+      <xs:complexType name="InvalidBlogPost">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="InvalidBlogPostException">
+    <wsdl:part name="InvalidBlogPostException" element="ns1:InvalidBlogPost" />
+  </wsdl:message>
+  <wsdl:message name="saveListResponse">
+    <wsdl:part name="parameters" element="ns1:saveListResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreatorNotFoundException">
+    <wsdl:part name="CreatorNotFoundException" element="ns1:CreatorNotFound" />
+  </wsdl:message>
+  <wsdl:message name="saveList">
+    <wsdl:part name="parameters" element="ns1:saveList" />
+  </wsdl:message>
+  <wsdl:portType name="BlogPostService">
+    <wsdl:operation name="saveList">
+      <wsdl:input name="saveList" message="ns1:saveList" />
+      <wsdl:output name="saveListResponse" message="ns1:saveListResponse" />
+      <wsdl:fault name="InvalidBlogPostException" message="ns1:InvalidBlogPostException" />
+      <wsdl:fault name="CreatorNotFoundException" message="ns1:CreatorNotFoundException" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

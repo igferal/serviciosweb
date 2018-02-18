@@ -9,6 +9,8 @@ namespace soapClient.parser.reducer
 
         public string reduceContent(string fileName)
         {
+            Console.WriteLine("Procesando fichero de Texto {0}", fileName);
+
             return System.IO.File.ReadAllText(fileName);
         }
     }

@@ -5,7 +5,7 @@ import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class UserService implements CanActivate {
-  private endpoint: string = "http://localhost:8443";
+  private endpoint: string = "https://localhost:8443";
 
   constructor(public http: Http, private router: Router) {
     console.log("Me creo");
